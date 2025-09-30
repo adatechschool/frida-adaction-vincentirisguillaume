@@ -1,39 +1,38 @@
 CREATE TABLE "associations"(
-    "id" BIGINT NOT NULL,
-    "volunteer_id" BIGINT NOT NULL,
-    "name" TEXT NOT NULL
+    id BIGSERIAL PRIMARY KEY,
+    "volunteer_id" BIGINT,
+    "name" TEXT
 );
-ALTER TABLE
-    "associations" ADD PRIMARY KEY("id");
+
 CREATE TABLE "volunteers"(
-    "id" BIGINT NOT NULL,
-    "username" TEXT NOT NULL,
-    "password" UUID NOT NULL,
-    "points" INTEGER NOT NULL,
-    "collect_id" BIGINT NOT NULL,
-    "location" TEXT NOT NULL
+    id BIGSERIAL PRIMARY KEY,
+    "username" TEXT,
+    "password" TEXT,
+    "points" INTEGER,
+    "collect_id" BIGINT,
+    "location" TEXT
 );
-ALTER TABLE
-    "volunteers" ADD PRIMARY KEY("id");
+
+
 CREATE TABLE "collect"(
-    "id" BIGINT NOT NULL,
-    "type_id" BIGINT NOT NULL,
-    "location" TEXT NOT NULL,
-    "created_at" DATE NOT NULL,
-    "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
+    id BIGSERIAL PRIMARY KEY,
+    "type_id" BIGINT,
+    "location" TEXT,
+    "created_at" DATE,
+    "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE
 );
-ALTER TABLE
-    "collect" ADD PRIMARY KEY("id");
+
+
+
 CREATE TABLE "types"(
-    "id" BIGINT NOT NULL,
-    "megot" INTEGER NOT NULL,
-    "canne" INTEGER NOT NULL,
-    "plastique" INTEGER NOT NULL,
-    "conserve" INTEGER NOT NULL,
-    "canette" INTEGER NOT NULL
+    id BIGSERIAL PRIMARY KEY,
+    "megot" INTEGER,
+    "canne" INTEGER,
+    "plastique" INTEGER,
+    "conserve" INTEGER,
+    "canette" INTEGER
 );
-ALTER TABLE
-    "types" ADD PRIMARY KEY("id");
+
 ALTER TABLE
     "collect" ADD CONSTRAINT "collect_type_id_foreign" FOREIGN KEY("type_id") REFERENCES "types"("id");
 ALTER TABLE
@@ -43,10 +42,38 @@ ALTER TABLE
 
 
 
+
 -- AJOUTER UNE COLONNE EMAIL DS TABLE volunteers
 
 ALTER TABLE public.volunteers ADD COLUMN email TEXT;
 
 -- MODIFIER L ETYPE DE DATE DE LA COLONNE PASSWORD
 
-ALTER TABLE public.volunteers ALTER COLUMN password TYPE text
+-- ALTER TABLE public.volunteers ALTER COLUMN password TYPE text
+
+
+-- INSERTION DE DONNEES
+
+INSERT INTO types (megot, canne, plastique, conserve, canette)
+VALUES 
+(50, 20, 30, 15, 25),
+(100, 40, 60, 30, 50),
+(75, 35, 45, 20, 40);
+
+INSERT INTO collect (type_id, location, created_at, updated_at)
+VALUES 
+(1, 'Parc Central', '2023-01-15', '2023-01-15 10:30:00'),
+(2, 'Plage du Sud', '2023-02-20', '2023-02-20 14:45:00'),
+(3, 'Forêt du Nord', '2023-03-25', '2023-03-25 09:15:00');
+
+INSERT INTO volunteers (username, password, points, collect_id, location, email)
+VALUES 
+('jean_propre', 'motdepasse123', 100, 1, 'Paris', 'jean@email.com'),
+('marie_eco', 'ecolo456', 150, 2, 'Marseille', 'marie@email.com'),
+('pierre_vert', 'vert789', 75, 3, 'Lyon', 'pierre@email.com');
+
+INSERT INTO associations (volunteer_id, name)
+VALUES 
+(1, 'Nettoyons la Nature'),
+(2, 'Océans Propres'),
+(3, 'Forêts Vertes');

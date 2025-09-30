@@ -38,8 +38,8 @@ app.get("/volunteers", async (req, res) => {
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
     const { username, email, location } = req.body;
-   
-    console.log(username);
+   console.log(username);
+    
     if (!username || !email || !location) {
         return res.status(400).json({ error: "Champs manquants" });
     }
@@ -47,7 +47,7 @@ app.post("/volunteer", async (req, res) => {
         const result = await sql.query(
              `INSERT INTO volunteers (username, location, email)
              VALUES ($1, $2, $3)`,
-            ['Patoche','Paris', 'claire@example.com']
+            [username, location, email]
         
         );
         res.status(201).json(result.rows[0]);
