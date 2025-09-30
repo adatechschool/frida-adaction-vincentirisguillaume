@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clean Ocean — Collecte</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <header class="title">
+            <h1 id="page-title">Clean Ocean</h1>
+        </header>
+    <div class="subtitle">Collecte du jour : <span id="collecte-date" class="date-value">04.07.2024</span></div>
+
+        <div class="form-row">
+            <div class="label">Localisation&nbsp;:</div>
+            <div class="select-wrap">
+                <select class="location" id="location-select">
+                    <option>Berck plage</option>
+                    <option>Autre</option>
+                </select>
+            </div>
+        </div>
+
+        <section class="items-list" id="items-list">
+            <!-- Example item. Duplicate/modify as needed. JS can clone the .item template -->
+            <div class="item">
+                <div class="item-left">🚬</div>
+                <div class="item-wrap">
+                    <div class="item-row">
+                        <div class="item-content">
+                            <div class="item-title">Cigarette</div>
+                            <div class="meta">Collectés dans le mois : <span class="monthly">103</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn minus">🔽</button>
+                    <input type="number" class="count" value="0">
+                    <button class="btn plus">🔼</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-left">🥤</div>
+                <div class="item-wrap">
+                    <div class="item-row">
+                        <div class="item-content">
+                            <div class="item-title">Gobelet</div>
+                            <div class="meta">Collectés dans le mois : <span class="monthly">78</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn minus">🔽</button>
+                    <input type="number" class="count" value="0">
+                    <button class="btn plus">🔼</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-left">🍾</div>
+                <div class="item-wrap">
+                    <div class="item-row">
+                        <div class="item-content">
+                            <div class="item-title">Bouteille</div>
+                            <div class="meta">Collectés dans le mois : <span class="monthly">51</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn minus">🔽</button>
+                    <input type="number" class="count" value="0">
+                    <button class="btn plus">🔼</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-left">🐟</div>
+                <div class="item-wrap">
+                    <div class="item-row">
+                        <div class="item-content">
+                            <div class="item-title">Filet/Engin</div>
+                            <div class="meta">Collectés dans le mois : <span class="monthly">25</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn minus">🔽</button>
+                    <input type="number" class="count" value="0">
+                    <button class="btn plus">🔼</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-left">🥫</div>
+                <div class="item-wrap">
+                    <div class="item-row">
+                        <div class="item-content">
+                            <div class="item-title">Boîte/Canette</div>
+                            <div class="meta">Collectés dans le mois : <span class="monthly">12</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn minus">🔽</button>
+                    <input type="number" class="count" value="0">
+                    <button class="btn plus">🔼</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="save-row">
+            <button class="save-btn" id="save-btn">Enregistrer</button>
+        </div>
+    </main>
+
+    <!-- Note: user will add event listeners in their script.js. Useful selectors:
+        - buttons: .btn.minus and .btn.plus
+        - counters: .count
+        - items: .item[data-item-id]
+        - location select: #location-select
+        - save button: #save-btn
+    -->
+
+</body>
+</html>
