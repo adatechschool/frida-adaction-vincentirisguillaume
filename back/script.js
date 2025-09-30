@@ -1,38 +1,44 @@
 import express from "express";
-import cors from "cors";
-
+import { Pool } from "pg";
 import dotenv from "dotenv";
-import postgres from "postgres";
+import cors from "cors";
 
 dotenv.config();
 
-const sql = postgres(process.env.DATABASE_URL, {
-    ssl: 'require',
-});
-
 const app = express();
 
+
+app.use(cors({ origin: "http://127.0.0.1:5500" }));
+
+//utilises et reconnais JSON
 app.use(express.json());
-app.use(cors());
 
 
-app.get("/", (req, res) => {
-    res.send("Accueil");
+// c'est a ca que tu te connectes pour acceder à la database
+const sql = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
 });
-
 
 app.get("/volunteers", async (req, res) => {
     try {
-        const volunteers = await sql`SELECT * FROM volunteers`;
-        console.log(volunteers);
-        res.json(volunteers);
+        const result = await sql.query("SELECT * FROM volunteers")
+        res.json(result.rows)
     }
-    catch (err) {
-        console.error('connexion échouée', err);
-    }
+    catch (e) {
+        res.status(500).json({ e : "impossible de recuperer volunteers depuis DB NEON" })
 
+    }
+    finally {
+        console.log("test")
+    }
 });
 
+app.listen(3000, () => {
+    console.log("HELLO SERVER");
+})
 
 
-app.listen(3000, () => { console.log("Serveur lancé sur http://localhost:3000"); });
+// app.post("/test", async (req, res) => {
+//     const {username} = 
+// })
