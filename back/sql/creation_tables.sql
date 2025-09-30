@@ -40,3 +40,13 @@ ALTER TABLE
     "volunteers" ADD CONSTRAINT "volunteers_collect_id_foreign" FOREIGN KEY("collect_id") REFERENCES "collect"("id");
 ALTER TABLE
     "associations" ADD CONSTRAINT "associations_volunteer_id_foreign" FOREIGN KEY("volunteer_id") REFERENCES "volunteers"("id");
+
+
+
+-- AJOUTER UNE COLONNE EMAIL DS TABLE volunteers
+
+ALTER TABLE public.volunteers ADD COLUMN email TEXT;
+
+-- MODIFIER L ETYPE DE DATE DE LA COLONNE PASSWORD
+
+ALTER TABLE public.volunteers ALTER COLUMN password TYPE text
