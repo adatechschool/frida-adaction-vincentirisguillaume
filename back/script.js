@@ -39,15 +39,15 @@ app.get("/volunteers", async (req, res) => {
 app.post("/volunteer", async (req, res) => {
     const { username, email, location } = req.body;
    
-    
+    console.log(username);
     if (!username || !email || !location) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
         const result = await sql.query(
-             `INSERT INTO volunteers (username, password, points, collect_id, location, email)
-             VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-            [username, 'cacahuète', 300, 1, location, email]
+             `INSERT INTO volunteers (username, location, email)
+             VALUES ($1, $2, $3)`,
+            ['Patoche','Paris', 'claire@example.com']
         
         );
         res.status(201).json(result.rows[0]);
