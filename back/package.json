@@ -1,13 +1,14 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "script.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node script.js",
     "dev": "nodemon script.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
@@ -16,6 +17,6 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
-    "pg": "^8.11.0"
+    "pg": "^8.16.3"
   }
 }
