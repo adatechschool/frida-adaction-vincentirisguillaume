@@ -45,9 +45,9 @@ app.post("/volunteer", async (req, res) => {
     }
     try {
         const result = await sql.query(
-             `INSERT INTO volunteers (username, location, email)
+             `INSERT INTO volunteers (username, email, location)
              VALUES ($1, $2, $3)`,
-            [username, location, email]
+            [username, email, location]
         
         );
         res.status(201).json(result.rows[0]);
@@ -57,44 +57,43 @@ app.post("/volunteer", async (req, res) => {
 });
 
 
-// app.post("/test", async (req, res) => {
-//     const {username} = 
-// })
-
-// // Route pour supprimer un bénévole
-// app.delete("/volunteer/:id", async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         const result = await sql.query(
-//             "DELETE FROM volunteers WHERE id = $1 RETURNING *",
-//             [id]
-//         );
-//         if (result.rows.length === 0) {
-//             return res.status(404).json({ error: "Bénévole non trouvé" });
-//         }
-//         res.json({ message: "Bénévole supprimé", volunteer: result.rows[0] });
-//     } catch (e) {
-//         res.status(500).json({ error: "Impossible de supprimer le bénévole" });
-//     }
-// });
+// Route pour supprimer un bénévole
+app.delete("/volunteer/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await sql.query(
+            "DELETE FROM volunteers WHERE id = $1 RETURNING *",
+            [id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Bénévole non trouvé" });
+        }
+        res.json({ message: "Bénévole supprimé", volunteer: result.rows[0] });
+    } catch (e) {
+        res.status(500).json({ error: "Impossible de supprimer le bénévole" });
+    }
+});
 
 // Route pour mettre à jour un bénévole
-// app.put("/volunteer/:id", async (req, res) => {
-//     const { id } = req.params;
-//     const { username, email, location } = req.body;
-//     try {
-//         const result = await sql.query(
-//             "UPDATE volunteers SET username = $1, email = $2, location = $3 WHERE id = $4 RETURNING *",
-//             [username, email, location, id]
-//         );
-//         if (result.rows.length === 0) {
-//             return res.status(404).json({ error: "Bénévole non trouvé" });
-//         }
-//         res.json(result.rows[0]);
-//     } catch (e) {
-//         res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
-//     }
-// });
+
+app.put("/volunteer/:id", async (req, res) => {
+    const { id } = req.params;
+    const { username, email, location } = req.body;
+    try {
+        const result = await sql.query(
+            "UPDATE volunteers SET username = $1, email = $2, location = $3 WHERE id = $4 RETURNING *",
+            [username, email, location, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Bénévole non trouvé" });
+        }
+        res.json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
+    }
+});
+
+
 // // Route pour lire les bénévoles par localisation
 // app.get("/volunteer/location/:location", async (req, res) => {
 //     const { location } = req.params;
