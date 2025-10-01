@@ -48,7 +48,7 @@ app.get("/volunteer/:id", async (req, res) => {
 
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
-    const { username, email, location } = req.body;
+    const { username, password, points, collect_id, location, email } = req.body;
     console.log(username);
 
     if (!username || !email || !location) {
@@ -56,9 +56,9 @@ app.post("/volunteer", async (req, res) => {
     }
     try {
         const result = await sql.query(
-            `INSERT INTO volunteers (username, email, location)
-             VALUES ($1, $2, $3)`,
-            [username, email, location]
+            `INSERT INTO volunteers (username, password, points, collect_id, location, email)
+             VALUES ($1, $2, $3, $4, $5, $6)`,
+            [username, password, points, collect_id, location, email]
 
         );
         res.status(201).json(result.rows[0]);
