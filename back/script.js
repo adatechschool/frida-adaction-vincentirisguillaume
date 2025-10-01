@@ -38,9 +38,9 @@ app.post("/volunteer", async (req, res) => {
     }
     try {
         const result = await sql.query(
-             `INSERT INTO volunteers (username, location, email)
+             `INSERT INTO volunteers (username, email, location)
              VALUES ($1, $2, $3)`,
-            [username, location, email]
+            [username, email, location]
         
         );
         res.status(201).json(result.rows[0]);
@@ -53,7 +53,6 @@ app.post("/volunteer", async (req, res) => {
 // Route pour supprimer un bénévole
 app.delete("/volunteer/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id)
     try {
         const result = await sql.query(
             "DELETE FROM volunteers WHERE id = $1 RETURNING *",
