@@ -86,20 +86,6 @@ app.put("/volunteer/:id", async (req, res) => {
 });
 
 
-// // Route pour lire les bénévoles par localisation
-// app.get("/volunteer/location/:location", async (req, res) => {
-//     const { location } = req.params;
-//     try {
-//         const result = await sql.query(
-//             "SELECT * FROM volunteers WHERE location = $1",
-//             [location]
-//         );
-//         res.json(result.rows);
-//     } catch (e) {
-//         res.status(500).json({ error: "Impossible de récupérer les bénévoles par localisation" });
-//     }
-// });
-
 app.listen(3000, () => {
     console.log("HELLO SERVER");
 })
