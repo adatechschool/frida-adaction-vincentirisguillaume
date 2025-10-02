@@ -10,7 +10,7 @@ function getAllCounts() {
     results.push({
       name: titleEl.textContent.trim(),
       count: Number(input.value) || 0,
-      monthly: Number(monthlyEl?.textContent) || 0
+      monthly: Number(monthlyEl?.textContent) || 0,
     });
   });
   return results;

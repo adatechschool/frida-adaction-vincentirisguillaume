@@ -23,7 +23,6 @@ app.get("/volunteers", async (req, res) => {
     }
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
-
     }
 });
 
@@ -44,7 +43,6 @@ app.get("/volunteer/:id", async (req, res) => {
 
     }
 });
-
 
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
@@ -103,7 +101,48 @@ app.put("/volunteer/:id", async (req, res) => {
     }
 });
 
+// Route pour ajouter des dechets
+app.post("/postypes", async (req, res) => {
+    const { megot, canne, plastique, conserve, cannette } = req.body;
 
+    if (!megot || !canne || !plastique || !conserve || !cannette) {
+        return res.status(400).json({ error: "Champs manquants" });
+    }
+    try {
+        const result = await sql.query(
+            `INSERT INTO types (megot, canne, plastique, conserve, cannette)
+             VALUES ($1, $2, $3, $4, $5)`,
+            [megot, canne, plastique, conserve, cannette]
+
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: "impossible d'ajouter les dechets" });
+    }
+});
+// route pour lire les types de dechets
+app.get("/types", async (req, res) => {
+    console.log("GET /types");
+    try {
+        const result = await sql.query("SELECT * FROM types")
+        res.json(result.rows)
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer les types de dechets depuis DB NEON" })
+    }
+});
+
+//route pour lire les collectes
+app.get("/collects", async (req, res) => {
+    console.log("GET /collects");
+    try {
+        const result = await sql.query("SELECT * FROM collects")
+        res.json(result.rows)
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer les collectes depuis DB NEON" })
+    }
+});
 // // Route pour lire les bénévoles par localisation
 // app.get("/volunteer/location/:location", async (req, res) => {
 //     const { location } = req.params;
