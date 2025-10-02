@@ -35,7 +35,7 @@ app.get("/volunteer/:id", async (req, res) => {
     try {
         const result = await sql.query("SELECT * FROM volunteers WHERE id=$1", [id])
         if (result.rows.length === 0) {
-            throw new Error (res.status(404).json({ Error:"il n'y a pas/plus de volunteer avec cet id"}));
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" }));
         }
         res.json(result.rows)
     }
@@ -103,6 +103,26 @@ app.put("/volunteer/:id", async (req, res) => {
     }
 });
 
+// Route pour ajouter des dechets
+app.post("/postypes", async (req, res) => {
+    const { megot, canne, plastique, conserve, canette } = req.body;
+
+    if (!megot || !canne || !plastique || !conserve || !canette) {
+        return res.status(400).json({ error: "Champs manquants" });
+    }
+    try {
+        const result = await sql.query(
+            `INSERT INTO types (megot, canne, plastique, conserve, canette)
+             VALUES ($1, $2, $3, $4, $5)`,
+            [megot, canne, plastique, conserve, canette]
+
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (e) {
+        console.error(e); // Ajoute ceci
+        res.status(500).json({ error: "impossible d'ajouter les dechets" });
+    }
+});
 
 app.listen(3000, () => {
     console.log("HELLO SERVER");
