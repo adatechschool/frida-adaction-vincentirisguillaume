@@ -23,7 +23,6 @@ app.get("/volunteers", async (req, res) => {
     }
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
-
     }
 });
 
@@ -44,7 +43,6 @@ app.get("/volunteer/:id", async (req, res) => {
 
     }
 });
-
 
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
@@ -122,7 +120,30 @@ app.post("/postypes", async (req, res) => {
         res.status(500).json({ error: "impossible d'ajouter les dechets" });
     }
 });
+//________________________________________________________________________________
+// Route pour le login TEST
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
 
+  try {
+    // Vérifie si un user correspond dans ta table volunteers
+    const result = await sql.query(
+      "SELECT * FROM volunteers WHERE username=$1 AND password=$2",
+      [username, password]
+    );
+
+    if (result.rows.length > 0) {
+      // Succès → renvoie OK
+      return res.status(200).json({ message: "Connexion réussie" });
+    } else {
+      // Échec
+      return res.status(401).json({ error: "Identifiant ou mot de passe incorrect" });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Erreur serveur" });
+  }
+});
 
 app.listen(3000, () => {
     console.log("HELLO SERVER");
