@@ -48,7 +48,7 @@ app.get("/volunteer/:id", async (req, res) => {
 
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
-    const { username, email, location } = req.body;
+    const { username, password, points, collect_id, location, email } = req.body;
     console.log(username);
 
     if (!username || !email || !location) {
@@ -56,9 +56,9 @@ app.post("/volunteer", async (req, res) => {
     }
     try {
         const result = await sql.query(
-            `INSERT INTO volunteers (username, email, location)
-             VALUES ($1, $2, $3)`,
-            [username, email, location]
+            `INSERT INTO volunteers (username, password, points, collect_id, location, email)
+             VALUES ($1, $2, $3, $4, $5, $6)`,
+            [username, password, points, collect_id, location, email]
 
         );
         res.status(201).json(result.rows[0]);
@@ -103,20 +103,6 @@ app.put("/volunteer/:id", async (req, res) => {
     }
 });
 
-
-// // Route pour lire les bénévoles par localisation
-// app.get("/volunteer/location/:location", async (req, res) => {
-//     const { location } = req.params;
-//     try {
-//         const result = await sql.query(
-//             "SELECT * FROM volunteers WHERE location = $1",
-//             [location]
-//         );
-//         res.json(result.rows);
-//     } catch (e) {
-//         res.status(500).json({ error: "Impossible de récupérer les bénévoles par localisation" });
-//     }
-// });
 
 app.listen(3000, () => {
     console.log("HELLO SERVER");
