@@ -3,28 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <title>Connexion</title>
+    <script src="../scriptsjs/test.js" defer></script>
   </head>
   <body>
     <h1>Connexion</h1>
 
-    <form action="wip.html" method="get" autocomplete="on"> <!-- changer la page wip.html pour une page d'historique -->
+   <form id="loginForm">
       <label for="username">Identifiant</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        required
-      />
+      <input type="text" id="username" required />
 
       <label for="password">Mot de passe</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        required
-      />
+      <input type="password" id="password" required />
 
       <button type="submit">Connexion</button>
+    </form>
+
+    <p id="message" style="color:red;"></p>
+
     </form>
   </body>
 </html>
