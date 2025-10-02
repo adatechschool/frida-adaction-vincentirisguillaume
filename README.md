@@ -4,7 +4,7 @@
 https://drawsql.app/teams/ada-tech-school-29/diagrams/copy-of-adaction
 
 # Excalidraw schéma du projet
-https://excalidraw.com/#json=Ilc4aSjMIQkfDIgOfbLM-,zsoeoYHYDy5KUBxBuAUtig
+https://excalidraw.com/#json=BUNAMQmHutzy34teMRvmD,2oJoi_LdwtnCaayewD8C7A
 
 
 # 29/09/2025
