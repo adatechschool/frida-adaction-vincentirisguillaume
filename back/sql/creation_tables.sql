@@ -1,79 +1,62 @@
 CREATE TABLE "associations"(
-    id BIGSERIAL PRIMARY KEY,
-    "volunteer_id" BIGINT,
-    "name" TEXT
+    "id" SERIAL NOT NULL,
+    "name" TEXT NULL
 );
-
+ALTER TABLE
+    "associations" ADD PRIMARY KEY("id");
 CREATE TABLE "volunteers"(
-    id BIGSERIAL PRIMARY KEY,
-    "username" TEXT,
-    "password" TEXT,
-    "points" INTEGER,
-    "collect_id" BIGINT,
-    "location" TEXT
+    "id" SERIAL NOT NULL,
+    "username" TEXT NULL,
+    "password" TEXT NULL,
+    "points" INTEGER NULL,
+    "association_id" BIGINT NULL,
+    "location" TEXT NULL,
+    "email" TEXT NULL
 );
-
-
-CREATE TABLE "collect"(
-    id BIGSERIAL PRIMARY KEY,
-    "type_id" BIGINT,
-    "location" TEXT,
-    "created_at" DATE,
-    "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE
+ALTER TABLE
+    "volunteers" ADD PRIMARY KEY("id");
+CREATE TABLE "collects"(
+    "id" SERIAL NOT NULL,
+    "volunteer_id" BIGINT NULL,
+    "location" TEXT NULL,
+    "created_at" DATE NULL,
+    "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NULL,
+    "megot" INTEGER NULL,
+    "canne" INTEGER NULL,
+    "plastique" INTEGER NULL,
+    "conserve" INTEGER NULL,
+    "canette" INTEGER NULL
 );
-
-
-
-CREATE TABLE "types"(
-    id BIGSERIAL PRIMARY KEY,
-    "megot" INTEGER,
-    "canne" INTEGER,
-    "plastique" INTEGER,
-    "conserve" INTEGER,
-    "canette" INTEGER
-);
-
 ALTER TABLE
-    "collect" ADD CONSTRAINT "collect_type_id_foreign" FOREIGN KEY("type_id") REFERENCES "types"("id");
+    "collects" ADD PRIMARY KEY("id");
 ALTER TABLE
-    "volunteers" ADD CONSTRAINT "volunteers_collect_id_foreign" FOREIGN KEY("collect_id") REFERENCES "collect"("id");
+    "collects" ADD CONSTRAINT "collects_volunteer_id_foreign" FOREIGN KEY("volunteer_id") REFERENCES "volunteers"("id");
 ALTER TABLE
-    "associations" ADD CONSTRAINT "associations_volunteer_id_foreign" FOREIGN KEY("volunteer_id") REFERENCES "volunteers"("id");
+    "volunteers" ADD CONSTRAINT "volunteers_association_id_foreign" FOREIGN KEY("association_id") REFERENCES "associations"("id");
 
+    -- Remplissage de la table associations
+INSERT INTO associations (name) VALUES
+('Surfrider'),
+('Greenpeace'),
+('WWF'),
+('Zero Waste'),
+('Sea Shepherd'),
+('Les Petits Débrouillards');
 
+-- Remplissage de la table volunteers
+INSERT INTO volunteers (username, password, points, association_id, location, email) VALUES
+('alice', 'abracadabra', 120, 1, 'Paris', 'alice@exemple.com'),
+('bob', 'sesame', 80, 2, 'Lyon', 'bob@exemple.com'),
+('charlie', 'alacazam', 60, 3, 'Marseille', 'charlie@exemple.com'),
+('david', 'opensesamy', 150, 4, 'Toulouse', 'david@exemple.com'),
+('emma', 'bisou', 90, 5, 'Nice', 'emma@exemple.com'),
+('frank', 'chouchou', 200, 6, 'Bordeaux', 'frank@exemple.com');
 
-
--- AJOUTER UNE COLONNE EMAIL DS TABLE volunteers
-
-ALTER TABLE public.volunteers ADD COLUMN email TEXT;
-
--- MODIFIER L ETYPE DE DATE DE LA COLONNE PASSWORD
-
--- ALTER TABLE public.volunteers ALTER COLUMN password TYPE text
-
-
--- INSERTION DE DONNEES
-
-INSERT INTO types (megot, canne, plastique, conserve, canette)
-VALUES 
-(50, 20, 30, 15, 25),
-(100, 40, 60, 30, 50),
-(75, 35, 45, 20, 40);
-
-INSERT INTO collect (type_id, location, created_at, updated_at)
-VALUES 
-(1, 'Parc Central', '2023-01-15', '2023-01-15 10:30:00'),
-(2, 'Plage du Sud', '2023-02-20', '2023-02-20 14:45:00'),
-(3, 'Forêt du Nord', '2023-03-25', '2023-03-25 09:15:00');
-
-INSERT INTO volunteers (username, password, points, collect_id, location, email)
-VALUES 
-('jean_propre', 'motdepasse123', 100, 1, 'Paris', 'jean@email.com'),
-('marie_eco', 'ecolo456', 150, 2, 'Marseille', 'marie@email.com'),
-('pierre_vert', 'vert789', 75, 3, 'Lyon', 'pierre@email.com');
-
-INSERT INTO associations (volunteer_id, name)
-VALUES 
-(1, 'Nettoyons la Nature'),
-(2, 'Océans Propres'),
-(3, 'Forêts Vertes');
+-- Remplissage de la table collects
+INSERT INTO collects (volunteer_id, location, created_at, updated_at, megot, canne, plastique, conserve, canette) VALUES
+(1, 'Paris', '2025-10-01', '2025-10-01 10:00:00', 12, 5, 8, 3, 7),
+(2, 'Lyon', '2025-10-02', '2025-10-02 11:00:00', 8, 2, 6, 1, 4),
+(3, 'Marseille', '2025-10-03', '2025-10-03 12:00:00', 15, 7, 10, 5, 9),
+(4, 'Toulouse', '2025-10-04', '2025-10-04 13:00:00', 5, 1, 3, 0, 2),
+(5, 'Nice', '2025-10-05', '2025-10-05 14:00:00', 20, 10, 12, 6, 11),
+(6, 'Bordeaux', '2025-10-06', '2025-10-06 15:00:00', 9, 3, 7, 2, 5);

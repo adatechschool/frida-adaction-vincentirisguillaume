@@ -34,7 +34,7 @@ app.get("/volunteer/:id", async (req, res) => {
     try {
         const result = await sql.query("SELECT * FROM volunteers WHERE id=$1", [id])
         if (result.rows.length === 0) {
-            throw new Error (res.status(404).json({ Error:"il n'y a pas/plus de volunteer avec cet id"}));
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" }));
         }
         res.json(result.rows);
     }
