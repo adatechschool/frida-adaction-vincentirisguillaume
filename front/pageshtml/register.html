@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adaction</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script defer src="../register.js"></script>
+</head>
+
+<body>
+    <main class="container">
+
+        <header class="title">
+            <h1 id="page-title">Inscription</h1>
+        </header>
+
+        <form id="form">
+
+            <div>
+                <label for="name">Nom :</label>
+                <input type="text" class="name" placeholder=" Votre Nom" name="inputName" required>
+            </div>
+
+            <div>
+                <label for="password">Mot de passe :</label>
+                <input type="text" class="pass" placeholder=" " name="inputPass" required>
+            </div>
+
+            <div>
+                <label for="location">Localisation :</label>
+                <input type="text" class="loc" placeholder=" Votre Ville" name="inputLoc" required>
+            </div>
+
+            <div>
+                <label for="email">Email :</label>
+                <input type="text" class="email" placeholder=" Votre Email" name="inputEmail" required>
+            </div>
+            <div>
+                <label for="asso">Association choisie :</label>
+                <select class="choixAsso">
+                    <option value="surfrider">Surfrider</option>
+                    <option value="greenpeace">Greenpeace</option>
+                    <option value="wwf">WWF</option>
+                    <option value="zeroWaste">Zero Waste</option>
+                    <option value="seaShepherd">Sea Shepherd</option>
+                    <option value="lesPetits">Les Petits Débrouillards</option>
+                </select>
+            </div>
+            <button type="submit" id="btnRegister">Enregistrer ✅ </button>
+        </form>
+
+
+</body>
+
+</html>
