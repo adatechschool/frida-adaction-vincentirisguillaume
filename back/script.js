@@ -23,7 +23,6 @@ app.get("/volunteers", async (req, res) => {
     }
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
-
     }
 });
 
@@ -44,7 +43,6 @@ app.get("/volunteer/:id", async (req, res) => {
 
     }
 });
-
 
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
@@ -122,7 +120,6 @@ app.post("/postypes", async (req, res) => {
         res.status(500).json({ error: "impossible d'ajouter les dechets" });
     }
 });
-
 
 app.listen(3000, () => {
     console.log("HELLO SERVER");
