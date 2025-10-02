@@ -82,6 +82,7 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
       saveBtn.textContent = 'Sauvegarde...';
     }
     await sendToDatabase();
+    
     // Feedback succès
     saveBtn.textContent = '✓ Sauvegardé!';
     setTimeout(() => {
