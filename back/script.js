@@ -37,7 +37,7 @@ app.get("/volunteer/:id", async (req, res) => {
         if (result.rows.length === 0) {
             throw new Error (res.status(404).json({ Error:"il n'y a pas/plus de volunteer avec cet id"}));
         }
-        res.json(result.rows)
+        res.json(result.rows);
     }
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
