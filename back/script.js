@@ -36,7 +36,7 @@ app.get("/volunteer/:id", async (req, res) => {
         if (result.rows.length === 0) {
             throw new Error (res.status(404).json({ Error:"il n'y a pas/plus de volunteer avec cet id"}));
         }
-        res.json(result.rows)
+        res.json(result.rows);
     }
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
@@ -46,7 +46,7 @@ app.get("/volunteer/:id", async (req, res) => {
 
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
-    const { username, email, location } = req.body;
+    const { username, password, points, collect_id, location, email } = req.body;
     console.log(username);
 
     if (!username || !email || !location) {
@@ -54,9 +54,9 @@ app.post("/volunteer", async (req, res) => {
     }
     try {
         const result = await sql.query(
-            `INSERT INTO volunteers (username, email, location)
-             VALUES ($1, $2, $3)`,
-            [username, email, location]
+            `INSERT INTO volunteers (username, password, points, collect_id, location, email)
+             VALUES ($1, $2, $3, $4, $5, $6)`,
+            [username, password, points, collect_id, location, email]
 
         );
         res.status(201).json(result.rows[0]);
@@ -103,16 +103,16 @@ app.put("/volunteer/:id", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postypes", async (req, res) => {
-    const { megot, canne, plastique, conserve, cannette } = req.body;
+    const { megot, canne, plastique, conserve, canette } = req.body;
 
-    if (!megot || !canne || !plastique || !conserve || !cannette) {
+    if (!megot || !canne || !plastique || !conserve || !canette) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
         const result = await sql.query(
-            `INSERT INTO types (megot, canne, plastique, conserve, cannette)
+            `INSERT INTO types (megot, canne, plastique, conserve, canette)
              VALUES ($1, $2, $3, $4, $5)`,
-            [megot, canne, plastique, conserve, cannette]
+            [megot, canne, plastique, conserve, canette]
 
         );
         res.status(201).json(result.rows[0]);
@@ -120,42 +120,7 @@ app.post("/postypes", async (req, res) => {
         res.status(500).json({ error: "impossible d'ajouter les dechets" });
     }
 });
-// route pour lire les types de dechets
-app.get("/types", async (req, res) => {
-    console.log("GET /types");
-    try {
-        const result = await sql.query("SELECT * FROM types")
-        res.json(result.rows)
-    }
-    catch (e) {
-        res.status(500).json({ e: "impossible de recuperer les types de dechets depuis DB NEON" })
-    }
-});
 
-//route pour lire les collectes
-app.get("/collects", async (req, res) => {
-    console.log("GET /collects");
-    try {
-        const result = await sql.query("SELECT * FROM collects")
-        res.json(result.rows)
-    }
-    catch (e) {
-        res.status(500).json({ e: "impossible de recuperer les collectes depuis DB NEON" })
-    }
-});
-// // Route pour lire les bénévoles par localisation
-// app.get("/volunteer/location/:location", async (req, res) => {
-//     const { location } = req.params;
-//     try {
-//         const result = await sql.query(
-//             "SELECT * FROM volunteers WHERE location = $1",
-//             [location]
-//         );
-//         res.json(result.rows);
-//     } catch (e) {
-//         res.status(500).json({ error: "Impossible de récupérer les bénévoles par localisation" });
-//     }
-// });
 
 app.listen(3000, () => {
     console.log("HELLO SERVER");
