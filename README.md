@@ -3,6 +3,9 @@
 # DrawSql
 https://drawsql.app/teams/ada-tech-school-29/diagrams/copy-of-adaction
 
+# Excalidraw schéma du projet
+https://excalidraw.com/#json=Ilc4aSjMIQkfDIgOfbLM-,zsoeoYHYDy5KUBxBuAUtig
+
 
 # 29/09/2025
 - Schématisation de la base de donnée sur DrawSQL
