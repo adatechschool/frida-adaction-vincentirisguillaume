@@ -182,3 +182,19 @@ app.post("/login", async (req, res) => {
 app.listen(3000, () => {
     console.log("HELLO SERVER");
 })
+
+
+
+//________________________________________________________________________________
+//Ajouter route vers Collects
+
+app.get("/collects", async (req, res) => {
+    console.log("GET /collects");
+    try {
+        const result = await sql.query("SELECT * FROM collects")
+        res.json(result.rows)
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer collects depuis DB NEON" })
+    }
+});
