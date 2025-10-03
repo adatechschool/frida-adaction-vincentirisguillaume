@@ -1,4 +1,10 @@
+import { getUserInfos } from "./UserInfos.js";
+
 const helloYou = document.getElementById("spanUser");
+const editBtn = document.getElementById("edit-profile-btn");
+const collectBtn = document.getElementById("new-collect-btn");
+
+
 //on va chercher le username et id ds localStorage
 const userId = localStorage.getItem("id");
 const username = localStorage.getItem("username");
@@ -15,13 +21,6 @@ return str2.join("");
 //affiche le prenom dans le titre
 helloYou.textContent = majuscule(username);
 
-//fetch infos user
-const getUserInfos = async () => {
-    const response = await fetch(`http://localhost:3000/volunteer/profile/${userId}`);
-    const data = await response.json();
-    console.log(data);
-    return data;
-}
 
 //affiche les infos user dans la page
 const displayUserInfos = async () => {
@@ -35,3 +34,15 @@ const displayUserInfos = async () => {
 }
 
 displayUserInfos();
+
+addEventListener("load", () => {
+    editBtn.addEventListener("click", () => {
+        window.location.href = "edit-profile.html";
+    })
+
+    collectBtn.addEventListener("click", () => {
+        window.location.href = "./wip.html";
+    })
+});
+
+export { getUserInfos };
