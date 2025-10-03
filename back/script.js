@@ -102,6 +102,28 @@ app.put("/volunteer/:id", async (req, res) => {
     }
 });
 
+
+// Route pour afficher les infos du profil + nom association
+app.get("/volunteer/profile/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await sql.query(
+            `SELECT * 
+             FROM volunteers
+             JOIN associations ON volunteers.association_id = associations.id
+             WHERE volunteers.id = $1`,
+            [id]);
+        res.json(result.rows);
+        if (result.rows.length === 0) {
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" }));
+        }
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
+
+    }
+});
+
 // Route pour ajouter des dechets
 app.post("/postypes", async (req, res) => {
     const { megot, canne, plastique, conserve, canette } = req.body;
@@ -124,26 +146,37 @@ app.post("/postypes", async (req, res) => {
 //________________________________________________________________________________
 // Route pour le login TEST
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+    const { username, password } = req.body;
 
-  try {
-    // Vérifie si un user correspond dans ta table volunteers
-    const result = await sql.query(
-      "SELECT * FROM volunteers WHERE username=$1 AND password=$2",
-      [username, password]
-    );
+    try {
+        // Vérifie si un user correspond dans ta table volunteers
+        const result = await sql.query(
+            "SELECT * FROM volunteers WHERE username=$1 AND password=$2",
+            [username, password]
+        );
 
-    if (result.rows.length > 0) {
-      // Succès → renvoie OK
-      return res.status(200).json({ message: "Connexion réussie" });
-    } else {
-      // Échec
-      return res.status(401).json({ error: "Identifiant ou mot de passe incorrect" });
+        console.log(result.rows[0]);
+
+        if (result.rows.length > 0) {
+
+            // met la ligne resultat ds user
+            const user = result.rows[0];
+
+            // Succès → renvoie message + renvoie user.username et user.id
+            return res.status(200).json({
+                message: "Connexion réussie",
+                id: user.id,
+                username: user.username
+            });
+        }
+        else {
+            // Échec
+            return res.status(401).json({ error: "Identifiant ou mot de passe incorrect" });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Erreur serveur" });
     }
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Erreur serveur" });
-  }
 });
 
 app.listen(3000, () => {
