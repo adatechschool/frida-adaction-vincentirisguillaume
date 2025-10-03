@@ -1,14 +1,21 @@
 const helloYou = document.getElementById("spanUser");
-
-
-
+//on va chercher le username et id ds localStorage
 const userId = localStorage.getItem("id");
 const username = localStorage.getItem("username");
-console.log(userId, username);
+// console.log(userId, username);
 
 
-helloYou.textContent = localStorage.getItem("username");
+//fonction majuscule sur le prénom
+const majuscule = (str) => {
+const str2 = str.split("");
+str2[0]= str2[0].toUpperCase();
+return str2.join("");
+}
 
+//affiche le prenom dans le titre
+helloYou.textContent = majuscule(username);
+
+//fetch infos user
 const getUserInfos = async () => {
     const response = await fetch(`http://localhost:3000/volunteer/profile/${userId}`);
     const data = await response.json();
@@ -16,6 +23,7 @@ const getUserInfos = async () => {
     return data;
 }
 
+//affiche les infos user dans la page
 const displayUserInfos = async () => {
     const userInfos = await getUserInfos();
     document.getElementById("location").textContent = userInfos[0].location || "Non renseigné";
