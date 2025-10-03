@@ -87,11 +87,11 @@ app.delete("/volunteer/:id", async (req, res) => {
 // Route pour mettre à jour un bénévole
 app.put("/volunteer/:id", async (req, res) => {
     const { id } = req.params;
-    const { username, password, points, collect_id, location, email } = req.body;
+    const { username, password, points, association_id, location, email } = req.body;
     try {
         const result = await sql.query(
-            "UPDATE volunteers SET username = $1, password = $2, points = $3, collect_id = $4, location = $5, email = $6 WHERE id=$7 RETURNING *",
-            [username, password, points, collect_id, location, email, id]
+            "UPDATE volunteers SET username = $1, password = $2, points = $3, association_id = $4, location = $5, email = $6 WHERE id=$7 RETURNING *",
+            [username, password, points, association_id, location, email, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Bénévole non trouvé" });
