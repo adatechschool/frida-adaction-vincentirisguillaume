@@ -1,8 +1,9 @@
 const form = document.getElementById('form');
 const nameInput = document.querySelector('.name');
-const cityInput = document.querySelector('.location');
+const cityInput = document.querySelector('.loc');
 const emailInput = document.querySelector('.email');
 const associationSelect = document.querySelector('.choixAsso');
+const passwordInput = document.querySelector('.pass');
 const btnRegister = document.getElementById('btnRegister');
 
 
@@ -13,7 +14,8 @@ form.addEventListener("submit", async (e) => {
     const username = nameInput.value;
     const location = cityInput.value;
     const email = emailInput.value;
-    // Ajoute d'autres champs si besoin
+    const password = passwordInput.value;
+    const association = associationSelect.value;
 
     if (!username || !location || !email) {
         alert("Merci de remplir tous les champs !");
@@ -29,14 +31,16 @@ form.addEventListener("submit", async (e) => {
             body: JSON.stringify({
                 username,
                 location,
-                email
+                email,
+                password,
+                association
                 // Ajoute d'autres champs si besoin
             })
         });
 
         if (response.ok) {
             alert("Inscription réussie !");
-            // Redirection ou autre action
+            window.location.href = "profile.html";
         } else {
             const errorData = await response.json();
             alert("Erreur : " + errorData.error);
@@ -47,9 +51,3 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-//   btnRegister.addEventListener("submit", (e) => {
-//     e.preventDefault();
-    
-//       window.location.href = "pageOrder.html";
-    
-//   });
