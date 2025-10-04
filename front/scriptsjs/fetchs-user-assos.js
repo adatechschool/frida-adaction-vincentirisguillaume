@@ -5,4 +5,11 @@ const getUserInfos = async () => {
     return await response.json();
 };
 
-export { getUserInfos };
+
+const getAssolist = async () => {
+    const response = await fetch('http://localhost:3000/associations');
+    const data = await response.json();
+    return (data);
+}
+
+export { getUserInfos , getAssolist };

@@ -1,4 +1,4 @@
-import { getUserInfos } from "./UserInfos.js";
+import { getUserInfos } from "./fetchs-user-assos.js";
 
 const helloYou = document.getElementById("spanUser");
 const editBtn = document.getElementById("edit-profile-btn");

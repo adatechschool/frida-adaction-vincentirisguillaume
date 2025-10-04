@@ -17,7 +17,7 @@ const sql = new Pool({
 });
 
 app.get("/volunteers", async (req, res) => {
-    console.log("GET /volunteers");
+    // console.log("GET /volunteers");
     try {
         const result = await sql.query("SELECT * FROM volunteers")
         res.json(result.rows)
@@ -106,7 +106,7 @@ app.put("/volunteer/:id", async (req, res) => {
 });
 
 
-// Route pour afficher les infos du profil + nom association
+// Route JOIN infos profil + nom asso --> mais PAS le mdp !!!
 app.get("/volunteer/profile/:id", async (req, res) => {
     const { id } = req.params;
     try {
