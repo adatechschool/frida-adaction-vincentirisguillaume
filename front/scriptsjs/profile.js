@@ -6,7 +6,7 @@ const collectBtn = document.getElementById("new-collect-btn");
 
 
 //on va chercher le username et id ds localStorage
-const userId = localStorage.getItem("id");
+
 const username = localStorage.getItem("username");
 // console.log(userId, username);
 
@@ -45,4 +45,4 @@ addEventListener("load", () => {
     })
 });
 
-export { getUserInfos };
+// Note: Pour la gestion des mots de passe, le hachage doit être fait côté serveur pour des raisons de sécurité.

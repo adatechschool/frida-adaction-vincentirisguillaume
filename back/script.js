@@ -2,6 +2,7 @@ import express from "express";
 import pkg from "pg";
 import dotenv from "dotenv";
 import cors from "cors";
+import bcrypt from "bcrypt";
 
 const { Pool } = pkg;
 dotenv.config();
@@ -53,6 +54,8 @@ app.post("/volunteer", async (req, res) => {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
+        // pour plus tard hash passwords CNIL ETC.
+        // password = await bcrypt.hash(password, 10); // 10 = nombre de tours (valeur standard)
         const result = await sql.query(
             `INSERT INTO volunteers (username, password, points, association_id, location, email)
              VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
@@ -87,11 +90,11 @@ app.delete("/volunteer/:id", async (req, res) => {
 // Route pour mettre à jour un bénévole
 app.put("/volunteer/:id", async (req, res) => {
     const { id } = req.params;
-    const { username, password, points, association_id, location, email } = req.body;
+    const { username, points, association_id, location, email } = req.body;
     try {
         const result = await sql.query(
-            "UPDATE volunteers SET username = $1, password = $2, points = $3, association_id = $4, location = $5, email = $6 WHERE id=$7 RETURNING *",
-            [username, password, points, association_id, location, email, id]
+            "UPDATE volunteers SET username = $1,  points = $2, association_id = $3, location = $4, email = $5 WHERE id=$6 RETURNING *",
+            [username, points, association_id, location, email, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Bénévole non trouvé" });
@@ -108,19 +111,40 @@ app.get("/volunteer/profile/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const result = await sql.query(
-            `SELECT * 
+            `SELECT 
+                volunteers.id,
+                volunteers.username,
+                volunteers.points,
+                volunteers.association_id,
+                volunteers.location,
+                volunteers.email,
+                associations.name AS association_name
              FROM volunteers
              JOIN associations ON volunteers.association_id = associations.id
              WHERE volunteers.id = $1`,
             [id]);
-        res.json(result.rows);
+
         if (result.rows.length === 0) {
-            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" }));
+            return res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" });
         }
+
+        res.json(result.rows);
     }
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
 
+    }
+});
+
+// Route pour afficher les associations
+app.get("/associations", async (req, res) => {
+    console.log("GET /associations");
+    try {
+        const result = await sql.query("SELECT * FROM associations")
+        res.json(result.rows)
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer associations depuis DB NEON" })
     }
 });
 
@@ -143,6 +167,8 @@ app.post("/postypes", async (req, res) => {
         res.status(500).json({ error: "impossible d'ajouter les dechets" });
     }
 });
+
+
 //________________________________________________________________________________
 // Route pour le login TEST
 app.post("/login", async (req, res) => {
@@ -156,6 +182,12 @@ app.post("/login", async (req, res) => {
         );
 
         console.log(result.rows[0]);
+
+        // pour plus tard - mdp crypté
+        // const isValid = await bcrypt.compare(password, user.password);
+        // if (isValid) {
+        //     // Connexion OK
+        // }
 
         if (result.rows.length > 0) {
 
