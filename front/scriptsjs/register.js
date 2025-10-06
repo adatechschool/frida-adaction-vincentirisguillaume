@@ -40,7 +40,7 @@ form.addEventListener("submit", async (e) => {
 
         if (response.ok) {
             alert("Inscription réussie !");
-            window.location.href = "profile.html";
+            window.location.href = "index.html";
         } else {
             const errorData = await response.json();
             alert("Erreur : " + errorData.error);
