@@ -1,12 +1,15 @@
+import { assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
+
 const form = document.getElementById('form');
 const nameInput = document.querySelector('.name');
 const cityInput = document.querySelector('.loc');
 const emailInput = document.querySelector('.email');
+const emailInput2 = document.getElementById('email2');
 const associationSelect = document.querySelector('.choixAsso');
 const passwordInput = document.querySelector('.pass');
-const btnRegister = document.getElementById('btnRegister');
 
-
+//menu deroulant des associations
+assoDropMenu(await getAssolist(), associationSelect);
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -15,10 +18,14 @@ form.addEventListener("submit", async (e) => {
     const location = cityInput.value;
     const email = emailInput.value;
     const password = passwordInput.value;
-    const association = associationSelect.value;
+    const association_id = associationSelect.value;
 
     if (!username || !location || !email) {
         alert("Merci de remplir tous les champs !");
+        return;
+    }
+    if (emailInput.value !== emailInput2.value) {
+        alert("Les emails ne correspondent pas");
         return;
     }
 
@@ -33,14 +40,14 @@ form.addEventListener("submit", async (e) => {
                 location,
                 email,
                 password,
-                association
-                // Ajoute d'autres champs si besoin
+                association_id
+                
             })
         });
 
         if (response.ok) {
             alert("Inscription réussie !");
-            window.location.href = "profile.html";
+            window.location.href = "index.html";
         } else {
             const errorData = await response.json();
             alert("Erreur : " + errorData.error);

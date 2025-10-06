@@ -1,5 +1,6 @@
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
+let idStorage;
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -17,8 +18,17 @@ form.addEventListener("submit", async (e) => {
         });
 
         if (response.ok) {
-            // Succès → redirige vers wip.html a changé of course
-            window.location.href = "wip.html";
+
+            //Succès →
+            const data = await response.json(); // recupere la reponse en json
+            
+            localStorage.clear() //efface le local storage
+            localStorage.setItem("username", data.username); // ajoute username ds local storage
+            localStorage.setItem("id", data.id); // ajoute son id ds local storage également
+
+            // redirige vers profile.html
+            window.location.href = "profile.html";
+
         } else {
             // Échec → message
             const data = await response.json();
@@ -28,4 +38,5 @@ form.addEventListener("submit", async (e) => {
         console.error("Erreur réseau", err);
         message.textContent = "Impossible de contacter le serveur";
     }
+
 });
