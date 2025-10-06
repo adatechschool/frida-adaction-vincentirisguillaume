@@ -1,12 +1,15 @@
+import { assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
+
 const form = document.getElementById('form');
 const nameInput = document.querySelector('.name');
 const cityInput = document.querySelector('.loc');
 const emailInput = document.querySelector('.email');
+const emailInput2 = document.getElementById('email2');
 const associationSelect = document.querySelector('.choixAsso');
 const passwordInput = document.querySelector('.pass');
-const btnRegister = document.getElementById('btnRegister');
 
-
+//menu deroulant des associations
+assoDropMenu(await getAssolist(), associationSelect);
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -19,6 +22,10 @@ form.addEventListener("submit", async (e) => {
 
     if (!username || !location || !email) {
         alert("Merci de remplir tous les champs !");
+        return;
+    }
+    if (emailInput.value !== emailInput2.value) {
+        alert("Les emails ne correspondent pas");
         return;
     }
 

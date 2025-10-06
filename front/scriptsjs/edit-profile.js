@@ -1,5 +1,4 @@
-import { getUserInfos } from "./fetchs-user-assos.js";
-import { getAssolist } from "./fetchs-user-assos.js";
+import { getUserInfos, assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
 
 const userName = document.getElementById('username');
 const locationInput = document.getElementById('location');
@@ -23,18 +22,7 @@ const fillPlaceholders = async () => {
 }
 fillPlaceholders();
 
-
-function assoDropMenu(array) {
-
-    for (const el of array) {
-        const option = document.createElement('option');
-        option.textContent = el.name;
-        associationInput.appendChild(option);
-        option.value = el.id;
-        option.id = el.id;
-    }
-}
-assoDropMenu(await getAssolist())
+assoDropMenu(await getAssolist(), associationInput)
 
 
 const sendUpdates = async (event) => {

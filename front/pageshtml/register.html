@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>adaction</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <script defer src="../scriptsjs/register.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../scriptsjs/register.js" type="module"></script>
 </head>
 
 <body>
@@ -37,15 +37,15 @@
                 <label for="email">Email :</label>
                 <input type="text" class="email" placeholder=" Votre Email" name="inputEmail" required>
             </div>
-            <div>
+             <div>
+                <label for="email2">Confirmation :</label>
+                <input type="text" id="email2" placeholder=" Confirmez Email" name="inputEmail2" required>
+            </div>
+
+              <div>
                 <label for="asso">Association choisie :</label>
-                <select class="choixAsso">
-                    <option value="1">Surfrider</option>
-                    <option value="2">Greenpeace</option>
-                    <option value="3">WWF</option>
-                    <option value="4">Zero Waste</option>
-                    <option value="5">Sea Shepherd</option>
-                    <option value="6">Les Petits Débrouillards</option>
+                <select id= "association-input" class="choixAsso">
+
                 </select>
             </div>
             <button type="submit" id="btnRegister">Enregistrer ✅ </button>

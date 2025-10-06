@@ -12,4 +12,15 @@ const getAssolist = async () => {
     return (data);
 }
 
-export { getUserInfos , getAssolist };
+function assoDropMenu(array, input) {
+
+    for (const el of array) {
+        const option = document.createElement('option');
+        option.textContent = el.name;
+        input.appendChild(option);
+        option.value = el.id;
+        option.id = el.id;
+    }
+}
+
+export { getUserInfos , getAssolist, assoDropMenu };
