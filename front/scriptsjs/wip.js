@@ -25,7 +25,7 @@ async function sendToDatabase() {
   };
 
   try {
-    const response = await fetch('http://localhost:3000/api/collecte', {
+    const response = await fetch('http://localhost:3000/api/postCollects', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -98,3 +98,15 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
     }, 2000);
   }
 });
+
+// --- Helpers d'accès global --- //
+window.getValues = function getValues() {
+  return getAllCounts().map(o => o.count); // [12, 3, 0, ...]
+};
+
+window.getLocation = function getLocation() {
+  return document.getElementById('location-select')?.value ?? null;
+};
+// const values = getValues();   // tableau de tous tes nombres
+// const location = getLocation(); // valeur du select
+// console.log('Values:', values, 'Location:', location);

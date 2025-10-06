@@ -103,17 +103,17 @@ app.put("/volunteer/:id", async (req, res) => {
 });
 
 // Route pour ajouter des dechets
-app.post("/postypes", async (req, res) => {
-    const { megot, canne, plastique, conserve, canette } = req.body;
+app.post("/postCollects", async (req, res) => {
+    const { location ,megot, canne, plastique, conserve, canette } = req.body;
 
-    if (!megot || !canne || !plastique || !conserve || !canette) {
+    if (!location || !megot || !canne || !plastique || !conserve || !canette) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
         const result = await sql.query(
-            `INSERT INTO types (megot, canne, plastique, conserve, canette)
-             VALUES ($1, $2, $3, $4, $5)`,
-            [megot, canne, plastique, conserve, canette]
+            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette)
+             VALUES ($1, $2, $3, $4, $5 , $6) RETURNING *`,
+            [location, megot, canne, plastique, conserve, canette]
 
         );
         res.status(201).json(result.rows[0]);
