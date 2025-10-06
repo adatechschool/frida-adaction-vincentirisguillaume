@@ -1,7 +1,6 @@
 const todayCollect = document.getElementById('today');
 const totalPoints = document.getElementById('total');
 const btnReturn = document.getElementById('btnReturn');
-const btnReturnIndex = document.getElementById('btnReturnIndex');
 
 
 
@@ -39,7 +38,7 @@ const displayToday = async () => {
         </div>
             `;
             todayCollect.appendChild(row);
-            
+
         });
         console.log("total", totalPointsMegots)
 
@@ -53,10 +52,6 @@ const displayToday = async () => {
 displayToday();
 
 
-btnReturn.addEventListener("click", async() => {
-    window.location.href = "wip.html";
-})
-
-btnReturnIndex.addEventListener("click", async() => {
-    window.location.href = "index.html";
+btnReturn.addEventListener("click", async () => {
+    window.location.href = "profile.html";
 })
