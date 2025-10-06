@@ -1,5 +1,6 @@
 import { getUserInfos, assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
 
+//éléments du DOM
 const userName = document.getElementById('username');
 const locationInput = document.getElementById('location');
 const associationInput = document.getElementById('association');
@@ -7,9 +8,11 @@ const emailInput = document.getElementById('email');
 const emailInput2 = document.getElementById('email2');
 const editBtn = document.getElementById('edit-btn');
 const userId = localStorage.getItem("id");
-let points;
-let nomasso;
 
+//variables globales
+let points, nomasso;
+
+// remplit les placeholders avec les infos actuelles du user
 const fillPlaceholders = async () => {
 
     const data = await getUserInfos();
@@ -20,11 +23,13 @@ const fillPlaceholders = async () => {
     emailInput2.placeholder = data[0].email || 'Non renseignée';
     points = data[0].points || 'Non renseigné';
 }
+//appel de la fonction
 fillPlaceholders();
 
+// remplit le menu déroulant des associations
 assoDropMenu(await getAssolist(), associationInput)
 
-
+// envoie les updates au clic sur le bouton
 const sendUpdates = async (event) => {
     event.preventDefault();
 
@@ -70,4 +75,5 @@ const sendUpdates = async (event) => {
     }
 };
 
+// appelle la fonction au clic
 editBtn.addEventListener('click', sendUpdates);

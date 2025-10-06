@@ -1,3 +1,7 @@
+// localStorage.clear(); // Pour tests, à retirer en prod
+const volunteer = localStorage.getItem("id");
+console.log("volunteer_id:", volunteer);
+
 // Utilitaire pour récupérer les valeurs de tous les compteurs
 function getAllCounts() {
   const results = [];
@@ -15,8 +19,10 @@ function getAllCounts() {
   });
   return results;
 }
+
 // Fonction pour envoyer les données à la base Neon
 async function sendToDatabase() {
+
   //compteur numeros deux uniquement//
   const location = document.getElementById('location-select').value;
   const megot = getAllCounts().map(o => o.count)[0];
@@ -25,6 +31,8 @@ async function sendToDatabase() {
   const canne = getAllCounts().map(o => o.count)[3];
   const conserve = getAllCounts().map(o => o.count)[4];
   console.log("location:", location)
+ 
+  
   //_________________________//
 
   try {
@@ -34,12 +42,13 @@ async function sendToDatabase() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        location,
-        megot,
-        plastique,
-        canette,
-        canne,
-        conserve
+        location: location,
+        megot: megot,
+        plastique: plastique,
+        canette: canette,
+        canne:  canne,
+        conserve: conserve,
+        volunteer_id: volunteer
       })
     });
     if (!response.ok) {
@@ -101,6 +110,7 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
       saveBtn.textContent = originalText;
       saveBtn.disabled = false;
     }, 2000);
+    window.location.href = "total.html";
   } catch (error) {
     console.error('Erreur Lors de la sauvegarde:', error);
     // Feedback erreur

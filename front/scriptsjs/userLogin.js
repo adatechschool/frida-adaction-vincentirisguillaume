@@ -22,6 +22,7 @@ form.addEventListener("submit", async (e) => {
             //Succès →
             const data = await response.json(); // recupere la reponse en json
             
+            //on envoie les infos user dans le local storage
             localStorage.clear() //efface le local storage
             localStorage.setItem("username", data.username); // ajoute username ds local storage
             localStorage.setItem("id", data.id); // ajoute son id ds local storage également

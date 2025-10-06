@@ -27,6 +27,7 @@ app.get("/volunteers", async (req, res) => {
     }
 });
 
+// Route pour afficher un bénévole par son id
 app.get("/volunteer/:id", async (req, res) => {
 
     const { id } = req.params;
@@ -105,6 +106,24 @@ app.put("/volunteer/:id", async (req, res) => {
     }
 });
 
+//Route pour ajouter des points a une collecte faite + benevole
+app.put("/volunteer/points/:id", async (req, res) => {
+    const { id } = req.params;
+    const { points } = req.body;
+    try {
+        const result = await sql.query(
+            "UPDATE volunteers SET points = $1 WHERE id=$2 RETURNING *",
+            [points, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Bénévole non trouvé" });
+        }
+        res.json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
+    }
+});
+
 
 // Route JOIN infos profil + nom asso --> mais PAS le mdp !!!
 app.get("/volunteer/profile/:id", async (req, res) => {
@@ -150,16 +169,16 @@ app.get("/associations", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postCollects", async (req, res) => {
-    const { location ,megot, canne, plastique, conserve, canette } = req.body;
+    const { location ,megot, canne, plastique, conserve, canette, volunteer_id } = req.body;
 
-    if (!location || !megot || !canne || !plastique || !conserve || !canette) {
+    if (!location || !megot || !canne || !plastique || !conserve || !canette || !volunteer_id) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
         const result = await sql.query(
-            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette)
-             VALUES ($1, $2, $3, $4, $5 , $6) RETURNING *`,
-            [location, megot, canne, plastique, conserve, canette]
+            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette, volunteer_id)
+             VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+            [location, megot, canne, plastique, conserve, canette, volunteer_id]
 
         );
         res.status(201).json(result.rows[0]);

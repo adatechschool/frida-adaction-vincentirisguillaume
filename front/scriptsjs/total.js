@@ -1,8 +1,12 @@
+import { fetchUserPoints, userId } from './fetchs-user-assos.js';
+
+
 const todayCollect = document.getElementById('today');
 const totalPoints = document.getElementById('total');
 const btnReturn = document.getElementById('btnReturn');
-const btnReturnIndex = document.getElementById('btnReturnIndex');
+const btnReturnProfil = document.getElementById('btnReturnIndex');
 
+let points;
 
 
 
@@ -21,28 +25,25 @@ const displayToday = async () => {
 
         const row = document.createElement('div');
 
-        data.forEach(waste => {
-            const totalPointsMegots = (waste.megot * ptsMegots);
-            const totalPointsCanne = (waste.canne * ptsCanne);
-            const totalPointsPlastique = (waste.plastique * ptsPlastique);
-            const totalPointsConserve = (waste.conserve * ptsConserve);
-            const totalPointsCanette = (waste.canette * ptsCanette);
+        // Récupérer la dernière collecte
+        const lastCollect = data.at(-1);
 
-            row.innerHTML = `
-            <h2> Collecte de la journée</h2>
-            <h3>${waste.megot} Mégot(s) = ${totalPointsMegots} points</h3>
-            <h3>${waste.canne} Canne(s) = ${totalPointsCanne} points</h3>
-            <h3>${waste.plastique} Plastique(s) = ${totalPointsPlastique} points</h3>
-            <h3>${waste.conserve} Conserve(s) = ${totalPointsConserve} points</h3>
-            <h3>${waste.canette} Canette(s) = ${totalPointsCanette} points</h3>
-            <h2>Points de la journée = ${totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve} points</h2>
-        </div>
-            `;
-            todayCollect.appendChild(row);
-            
-        });
-        console.log("total", totalPointsMegots)
-
+        const totalPointsMegots = (lastCollect.megot * ptsMegots);
+        const totalPointsCanne = (lastCollect.canne * ptsCanne);
+        const totalPointsPlastique = (lastCollect.plastique * ptsPlastique);
+        const totalPointsConserve = (lastCollect.conserve * ptsConserve);
+        const totalPointsCanette = (lastCollect.canette * ptsCanette);
+        points = totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve;
+        row.innerHTML = `
+            <h2> Collecte de la journée</h2>       
+            <h3>${lastCollect.megot} Mégot(s) = ${totalPointsMegots} points</h3>
+            <h3>${lastCollect.canne} Canne(s) = ${totalPointsCanne} points</h3>
+            <h3>${lastCollect.plastique} Plastique(s) = ${totalPointsPlastique} points</h3>
+             <h3>${lastCollect.conserve} Conserve(s) = ${totalPointsConserve} points</h3>
+            <h3>${lastCollect.canette} Canette(s) = ${totalPointsCanette} points</h3>
+            <h2>Points de la journée = ${totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve} points</h2>`;
+        todayCollect.appendChild(row);
+        return points;
     }
     catch (error) {
         console.error('Error fetching collects:', error);
@@ -50,13 +51,36 @@ const displayToday = async () => {
 
 }
 
-displayToday();
 
 
-btnReturn.addEventListener("click", async() => {
+async function logpoints() {
+    points = await displayToday();
+    console.log("points:", points);
+
+    const userPoints = await fetchUserPoints(userId);
+    console.log("userPoints:", userPoints);
+
+    try {
+        fetch(`http://localhost:3000/volunteer/points/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ points: points + userPoints})
+        });
+
+    } catch (error) {
+        console.error('Error updating points:', error);
+    }
+
+}
+
+logpoints()
+
+btnReturn.addEventListener("click", async () => {
     window.location.href = "wip.html";
 })
 
-btnReturnIndex.addEventListener("click", async() => {
-    window.location.href = "index.html";
+btnReturnProfil.addEventListener("click", async () => {
+    window.location.href = "profile.html";
 })

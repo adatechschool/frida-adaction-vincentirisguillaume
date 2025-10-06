@@ -1,14 +1,13 @@
-import { getUserInfos } from "./fetchs-user-assos.js";
+import { getUserInfos, username } from "./fetchs-user-assos.js";
 
 const helloYou = document.getElementById("spanUser");
 const editBtn = document.getElementById("edit-profile-btn");
 const collectBtn = document.getElementById("new-collect-btn");
 const deconnectBtn = document.getElementById("deconnect-btn");
 const historiqueBtn = document.getElementById("historique-btn");
-//on va chercher le username et id ds localStorage
 
-const username = localStorage.getItem("username");
-// console.log(userId, username);
+//on vérifie le username présent ds localStorage
+//console.log(username);
 
 
 //fonction majuscule sur le prénom
