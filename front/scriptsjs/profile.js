@@ -4,7 +4,7 @@ const helloYou = document.getElementById("spanUser");
 const editBtn = document.getElementById("edit-profile-btn");
 const collectBtn = document.getElementById("new-collect-btn");
 const deconnectBtn = document.getElementById("deconnect-btn");
-
+const historiqueBtn = document.getElementById("historique-btn");
 //on va chercher le username et id ds localStorage
 
 const username = localStorage.getItem("username");
@@ -43,7 +43,12 @@ addEventListener("load", () => {
     collectBtn.addEventListener("click", () => {
         window.location.href = "./wip.html";
     })
-    deconnectBtn.addEventListener("click", () => {
+  
+       historiqueBtn.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "historique.html";
+    })
+      deconnectBtn.addEventListener("click", () => {
         localStorage.clear();
         window.location.href = "index.html";
     })
