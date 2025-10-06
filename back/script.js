@@ -138,7 +138,7 @@ app.get("/volunteer/profile/:id", async (req, res) => {
 
 // Route pour afficher les associations
 app.get("/associations", async (req, res) => {
-    console.log("GET /associations");
+    // console.log("GET /associations");
     try {
         const result = await sql.query("SELECT * FROM associations")
         res.json(result.rows)

@@ -3,7 +3,7 @@ import { getUserInfos } from "./fetchs-user-assos.js";
 const helloYou = document.getElementById("spanUser");
 const editBtn = document.getElementById("edit-profile-btn");
 const collectBtn = document.getElementById("new-collect-btn");
-
+const deconnectBtn = document.getElementById("deconnect-btn");
 
 //on va chercher le username et id ds localStorage
 
@@ -26,7 +26,7 @@ helloYou.textContent = majuscule(username);
 const displayUserInfos = async () => {
     const userInfos = await getUserInfos();
     document.getElementById("location").textContent = userInfos[0].location || "Non renseigné";
-    document.getElementById("association").textContent = userInfos[0].name || "Non renseignée";
+    document.getElementById("association").textContent = userInfos[0].association_name || "Non renseignée";
     document.getElementById("points").textContent = userInfos[0].points || "Non renseignée";
 
     document.getElementById("email").textContent = userInfos[0].email || "Non renseignée";
@@ -42,6 +42,10 @@ addEventListener("load", () => {
 
     collectBtn.addEventListener("click", () => {
         window.location.href = "./wip.html";
+    })
+    deconnectBtn.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "index.html";
     })
 });
 
