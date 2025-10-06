@@ -52,3 +52,11 @@ const displayToday = async () => {
 
 displayToday();
 
+
+btnReturn.addEventListener("click", async() => {
+    window.location.href = "wip.html";
+})
+
+btnReturnIndex.addEventListener("click", async() => {
+    window.location.href = "index.html";
+})

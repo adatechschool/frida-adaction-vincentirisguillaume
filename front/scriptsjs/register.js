@@ -15,7 +15,7 @@ form.addEventListener("submit", async (e) => {
     const location = cityInput.value;
     const email = emailInput.value;
     const password = passwordInput.value;
-    const association = associationSelect.value;
+    const association_id = associationSelect.value;
 
     if (!username || !location || !email) {
         alert("Merci de remplir tous les champs !");
@@ -33,8 +33,8 @@ form.addEventListener("submit", async (e) => {
                 location,
                 email,
                 password,
-                association
-                // Ajoute d'autres champs si besoin
+                association_id
+                
             })
         });
 
