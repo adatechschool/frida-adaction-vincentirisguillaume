@@ -31,8 +31,11 @@ async function sendToDatabase() {
   const canne = getAllCounts().map(o => o.count)[3];
   const conserve = getAllCounts().map(o => o.count)[4];
   console.log("location:", location)
+  const total = megot + plastique + canette + canne + conserve
  
-  
+  if(total === 0){
+    return
+  }
   //_________________________//
 
   try {
@@ -89,19 +92,30 @@ document.querySelectorAll('.count').forEach(input => {
     let value = Number(input.value) || 0;
     if (value < 0) value = 0;
     input.value = value;
+    console.log("input.value", input.value)
   });
 });
 
 // Gestion du bouton Enregistrer avec feedback visuel
 document.getElementById('save-btn')?.addEventListener('click', async () => {
   const saveBtn = document.getElementById('save-btn');
+  if (!saveBtn) return;
+
   const originalText = saveBtn.textContent;
+  const counts = getAllCounts().map(o => o.count);
+  const hasItems = counts.some(value => value > 0);
+
+  if (!hasItems) {
+    saveBtn.textContent = 'Ajoutez un élément';
+    setTimeout(() => {
+      saveBtn.textContent = originalText;
+    }, 2000);
+    return;
+  }
 
   try {
-    if (saveBtn) {
-      saveBtn.disabled = true;
-      saveBtn.textContent = 'Sauvegarde...';
-    }
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Sauvegarde...';
     await sendToDatabase();
 
     // Feedback succès
@@ -121,4 +135,3 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
     }, 2000);
   }
 });
-
