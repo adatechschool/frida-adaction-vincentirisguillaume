@@ -171,7 +171,7 @@ app.get("/associations", async (req, res) => {
 app.post("/postCollects", async (req, res) => {
     const { location ,megot, canne, plastique, conserve, canette, volunteer_id } = req.body;
 
-    if (!location || !megot || !canne || !plastique || !conserve || !canette || !volunteer_id) {
+    if (!location || megot == null || canne == null || plastique == null || conserve == null || canette == null || !volunteer_id) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {

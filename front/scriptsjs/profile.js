@@ -49,7 +49,7 @@ addEventListener("load", () => {
     })
       deconnectBtn.addEventListener("click", () => {
         localStorage.clear();
-        window.location.href = "index.html";
+        window.location.href = "./index.html";
     })
 });
 

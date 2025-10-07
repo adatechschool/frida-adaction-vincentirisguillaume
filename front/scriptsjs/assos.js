@@ -2,38 +2,48 @@ const userLine = document.getElementById('collecte-rows');
 const rowsCount = document.getElementById('rows-count');
 
 const getVolunteer = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/volunteers');
-    const data = await response.json();
+// recuperation des données de chaque volontaire depuis la base de données
+    try {
+        const response = await fetch('http://localhost:3000/volunteers');
+        const data = await response.json();
+        console.log(data);
+        data.forEach(volunteer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <th scope="row" id=idVolunteer>${volunteer.id}</th>
+                <td>${volunteer.username}</td>
+                <td>${volunteer.points}</td>
+                <td>${volunteer.location}</td>
+                <td>${volunteer.email}</td>
+                <td><button class="remove-btn">supprimer</button></td>
+            `;
+            userLine.appendChild(row);
+            console.log("volunteer.id:", volunteer.id)
+            let idVolunteer = volunteer.id;
 
-    console.log("Volunteers:", data);
+// suppression d'un volontaire au choix
 
-    // On met à jour le compteur
-    rowsCount.textContent = `Nombre de collectes aujourd'hui : ${data.length}`;
-
-    // On vide le tableau avant d’ajouter les lignes (au cas où)
-    userLine.innerHTML = "";
-
-    // On crée une ligne pour chaque bénévole
-    data.forEach(volunteer => {
-      const row = document.createElement('tr');
-
-      // Utilisation de data-label pour le mode mobile
-      row.innerHTML = `
-        <td data-label="ID">${volunteer.id}</td>
-        <td data-label="Nom d'utilisateur">${volunteer.username}</td>
-        <td data-label="Points">${volunteer.points ?? 0}</td>
-        <td data-label="Location">${volunteer.location || 'Non renseigné'}</td>
-        <td data-label="Email">${volunteer.email}</td>
-      `;
-
-      userLine.appendChild(row);
-    });
-
-  } catch (error) {
-    console.error('Erreur lors du chargement des bénévoles :', error);
-    rowsCount.textContent = "⚠️ Erreur de connexion au serveur";
-  }
+            let btnRemove = row.querySelector('.remove-btn');
+            btnRemove.addEventListener('click', async () => {
+                try {
+                    const deleteResponse = await fetch(`http://localhost:3000/volunteer/${idVolunteer}`, {
+                        method: 'DELETE'
+                    });
+                    if (deleteResponse.ok) {
+                        alert('Volontaire supprimé avec succes');
+                        row.remove();
+                    } else {
+                        alert('Erreur lors de la suppression du volontaire');
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la suppression du volontaire:', error);
+                    alert('Erreur lors de la suppression du volontaire');
+                }
+            });
+        });
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 };
 
 // Appel de la fonction
