@@ -82,5 +82,5 @@ btnReturn.addEventListener("click", async () => {
 })
 
 btnReturnProfil.addEventListener("click", async () => {
-    window.location.href = "profile.html";
+    window.location.href = "/pageshtml/profile.html";
 })
