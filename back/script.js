@@ -169,7 +169,7 @@ app.get("/associations", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postCollects", async (req, res) => {
-    const { location ,megot, canne, plastique, conserve, canette, volunteer_id } = req.body;
+    const { location, megot, canne, plastique, conserve, canette, volunteer_id } = req.body;
 
     if (!location || megot == null || canne == null || plastique == null || conserve == null || canette == null || !volunteer_id) {
         return res.status(400).json({ error: "Champs manquants" });
@@ -248,4 +248,32 @@ app.get("/collects", async (req, res) => {
     catch (e) {
         res.status(500).json({ e: "impossible de recuperer collects depuis DB NEON" })
     }
+});
+
+
+// route pour affichage de l'historique des collectes d'un benevole
+app.get("/collects/volunteer/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await sql.query(
+            `SELECT 
+            collects.location,
+            collects.created_at,
+            volunteers.username,
+            volunteers.points,
+            associations.name AS association_name
+            FROM collects
+            JOIN volunteers on collects.volunteer_id = volunteers.id
+            JOIN associations ON volunteers.association_id = associations.id
+            WHERE volunteers.id = $1
+            ORDER BY collects.created_at DESC`, [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ Error: "il n'y a pas/plus de collects pour ce benevole" });
+        }
+        res.json(result.rows);
+    }
+    catch (e) {
+        res.status(500).json({ e: 'impossible de recuperer collects et volunteers infos from DB' })
+    }
+
 });

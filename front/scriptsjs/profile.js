@@ -1,4 +1,4 @@
-import { getUserInfos, username } from "./fetchs-user-assos.js";
+import { getUserInfos, username } from "./fetchs-iris.js";
 
 const helloYou = document.getElementById("spanUser");
 const editBtn = document.getElementById("edit-profile-btn");
@@ -7,7 +7,7 @@ const deconnectBtn = document.getElementById("deconnect-btn");
 const historiqueBtn = document.getElementById("historique-btn");
 
 //on vérifie le username présent ds localStorage
-//console.log(username);
+console.log(username);
 
 
 //fonction majuscule sur le prénom
@@ -27,7 +27,6 @@ const displayUserInfos = async () => {
     document.getElementById("location").textContent = userInfos[0].location || "Non renseigné";
     document.getElementById("association").textContent = userInfos[0].association_name || "Non renseignée";
     document.getElementById("points").textContent = userInfos[0].points || "Non renseignée";
-
     document.getElementById("email").textContent = userInfos[0].email || "Non renseignée";
     document.getElementById("password").textContent = "*******" || "Non renseigné";
 }
