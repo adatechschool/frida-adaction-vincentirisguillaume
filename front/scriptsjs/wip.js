@@ -33,9 +33,11 @@ async function sendToDatabase() {
   console.log("location:", location)
   const total = megot + plastique + canette + canne + conserve
  
-  if(total === 0){
-    return
-  }
+  if(total === 0)
+    return;
+
+    const now = new Date().toISOString();
+  
   //_________________________//
 
   try {
@@ -51,7 +53,8 @@ async function sendToDatabase() {
         canette: canette,
         canne:  canne,
         conserve: conserve,
-        volunteer_id: volunteer
+        volunteer_id: volunteer,
+        created_at: now
       })
     });
     if (!response.ok) {

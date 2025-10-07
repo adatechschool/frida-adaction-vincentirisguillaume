@@ -169,16 +169,16 @@ app.get("/associations", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postCollects", async (req, res) => {
-    const { location ,megot, canne, plastique, conserve, canette, volunteer_id } = req.body;
+    const { location ,megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at } = req.body;
 
     if (!location || megot == null || canne == null || plastique == null || conserve == null || canette == null || !volunteer_id) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
         const result = await sql.query(
-            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette, volunteer_id)
-             VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [location, megot, canne, plastique, conserve, canette, volunteer_id]
+            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+            [location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at]
 
         );
         res.status(201).json(result.rows[0]);
