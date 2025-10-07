@@ -2,6 +2,17 @@
 const username = localStorage.getItem("username");
 const userId = localStorage.getItem("id");
 
+// créer un element dans le dom
+function nouvelleBalise(type, texte, id) {
+    let element = document.createElement(`${type}`);
+    element.innerText = texte;
+    return id.appendChild(element);
+}
+function nouvelleBalise2(type, id) {
+    let element = document.createElement(`${type}`);
+    return id.appendChild(element);
+}
+
 // function fetch sur table volunteers GET
 const getUserInfos = async () => {
     const userId = localStorage.getItem("id");
@@ -57,4 +68,4 @@ const getHistoInfo = async(id) => {
     return data;
 }
 
-export { getUserInfos , getAssolist, assoDropMenu, fetchUserPoints, getHistoInfo, username, userId };
+export { getUserInfos , getAssolist, assoDropMenu, fetchUserPoints, getHistoInfo, nouvelleBalise, nouvelleBalise2, username, userId };
