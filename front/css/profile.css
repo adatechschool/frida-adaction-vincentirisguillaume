@@ -1,0 +1,157 @@
+/* ============================
+   PROFILE PAGE — Mobile First
+============================ */
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f4f8fb;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 14px;
+  color: #111827;
+}
+
+/* ===== Profile Card ===== */
+#profil-info,
+#profile-actions {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+#profil-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.06);
+}
+
+#profil-card h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+#profil-card p {
+  margin: 6px 0;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+#profil-card p strong {
+  color: #0b74c9;
+  font-weight: 600;
+}
+
+/* ===== Buttons smaller version ===== */
+#profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* less spacing between buttons */
+}
+
+#profile-actions button {
+  display: inline-block;
+  width: 100%;
+  padding: 9px 12px; /* smaller height */
+  border-radius: 10px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Primary (blue) buttons */
+#new-collect-btn,
+#edit-profile-btn {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 114, 255, 0.18);
+}
+
+#new-collect-btn:hover,
+#edit-profile-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 114, 255, 0.22);
+}
+
+/* Secondary (white) buttons */
+#historique-btn,
+#deconnect-btn {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1.5px solid #e6eef8;
+  box-shadow: 0 3px 8px rgba(10, 20, 34, 0.03);
+}
+
+#historique-btn:hover,
+#deconnect-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(10, 20, 34, 0.06);
+}
+
+/* Disconnect button - light red tone */
+#deconnect-btn {
+  border-color: rgba(211, 47, 47, 0.1);
+  color: #b91c1c;
+}
+
+/* ===== Tablet (≥600px) ===== */
+@media (min-width: 600px) {
+  body {
+    padding: 32px;
+  }
+
+  #profil-card {
+    padding: 20px;
+  }
+
+  #profil-card h2 {
+    font-size: 1.25rem;
+  }
+
+  #profil-card p {
+    font-size: 0.95rem;
+  }
+
+  #profile-actions button {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+}
+
+/* ===== Desktop (≥900px) ===== */
+@media (min-width: 900px) {
+  body {
+    align-items: center;
+    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
+  }
+
+  .page-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  #profil-card {
+    padding: 24px;
+  }
+
+  #profile-actions button {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Focus states */
+button:focus {
+  outline: 3px solid rgba(0, 170, 255, 0.18);
+  outline-offset: 2px;
+}

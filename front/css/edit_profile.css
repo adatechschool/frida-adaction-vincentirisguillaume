@@ -1,0 +1,150 @@
+/* ============================
+   EDIT PROFILE — Mobile First
+============================ */
+
+/* ===== GLOBAL ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f4f8fb;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px 16px;
+  color: #111827;
+}
+
+/* ===== CARD / CONTAINER ===== */
+#profil-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 420px;
+  padding: 22px;
+}
+
+#profil-card h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 22px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ===== FORM ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
+  font-size: 0.95rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 11px;
+  border-radius: 12px;
+  border: 1.5px solid #dce4ec;
+  background: #f9fcff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+}
+
+/* ===== BUTTON (smaller version) ===== */
+button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+  margin-top: 6px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 114, 255, 0.25);
+}
+
+/* ===== SMALLER SCREEN SPACING ===== */
+@media (max-width: 380px) {
+  #profil-card {
+    padding: 18px;
+  }
+  #profil-card h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* ===== TABLET (≥600px) ===== */
+@media (min-width: 600px) {
+  #profil-card {
+    padding: 28px;
+  }
+
+  #profil-card h2 {
+    font-size: 1.8rem;
+  }
+
+  input,
+  select {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 11px 16px;
+  }
+}
+
+/* ===== DESKTOP (≥900px) ===== */
+@media (min-width: 900px) {
+  body {
+    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
+    align-items: center;
+  }
+
+  #profil-card {
+    padding: 36px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+  }
+
+  #profil-card h2 {
+    font-size: 2rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 12px 18px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.25);
+}

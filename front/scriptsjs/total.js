@@ -3,7 +3,6 @@ import { fetchUserPoints, userId } from './fetchs-user-assos.js';
 
 const todayCollect = document.getElementById('today');
 const totalPoints = document.getElementById('total');
-const btnReturn = document.getElementById('btnReturn');
 const btnReturnProfil = document.getElementById('btnReturnIndex');
 
 let points;
@@ -77,10 +76,6 @@ async function logpoints() {
 
 logpoints()
 
-btnReturn.addEventListener("click", async () => {
-    window.location.href = "wip.html";
-})
-
-btnReturnProfil.addEventListener("click", async () => {
+btnReturnProfil.addEventListener("click", () => {
     window.location.href = "profile.html";
 })
