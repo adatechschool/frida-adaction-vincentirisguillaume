@@ -1,3 +1,6 @@
+//constantes d'identification user
+const username = localStorage.getItem("username");
+const userId = localStorage.getItem("id");
 
 // function fetch sur table volunteers GET
 const getUserInfos = async () => {
@@ -26,12 +29,7 @@ function assoDropMenu(array, input) {
     }
 }
 
-//constantes d'identification user
-const username = localStorage.getItem("username");
-const userId = localStorage.getItem("id");
-
-
-// function import des points user
+// fonction import des points user
 const fetchUserPoints = async (id) => {
     try {
 
@@ -51,4 +49,12 @@ const fetchUserPoints = async (id) => {
     }
 }
 
-export { getUserInfos , getAssolist, assoDropMenu, fetchUserPoints, username, userId };
+// fonction import infos pour historique
+
+const getHistoInfo = async(id) => {
+    const response = await fetch(`http://localhost:3000/collects/volunteer/${id}`);
+    const data = await response.json()
+    return data;
+}
+
+export { getUserInfos , getAssolist, assoDropMenu, fetchUserPoints, getHistoInfo, username, userId };

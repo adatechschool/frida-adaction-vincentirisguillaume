@@ -1,0 +1,140 @@
+/* ============================
+   ASSOS PAGE — Mobile First
+============================ */
+
+/* ===== BASE ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f4f8fb;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  color: #111827;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ===== TITRE ===== */
+.title h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+/* ===== NOMBRE DE COLLECTES ===== */
+#rows-count {
+  text-align: center;
+  font-weight: 500;
+  color: #0072ff;
+  background: rgba(0, 114, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: inline-block;
+  margin: 0 auto 20px auto;
+}
+
+/* ===== TABLEAU ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  font-size: 0.9rem;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* En-tête */
+thead {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+}
+
+th {
+  text-align: left;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Corps du tableau */
+tbody tr:nth-child(even) {
+  background: #f9fcff;
+}
+
+tbody tr:hover {
+  background: rgba(0, 170, 255, 0.1);
+}
+
+td {
+  padding: 10px;
+  color: #333;
+  border-bottom: 1px solid #e5e7eb;
+  word-break: break-word;
+}
+
+/* ===== RESPONSIVE MOBILE ===== */
+@media (max-width: 700px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #0072ff;
+  }
+}
+
+/* ===== TABLET (≥900px) ===== */
+@media (min-width: 900px) {
+  body {
+    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
+  }
+
+  .container {
+    padding: 28px 36px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .title h1 {
+    font-size: 1.8rem;
+  }
+}

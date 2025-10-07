@@ -1,219 +1,182 @@
+/* ==================================== */
+/* 1. Variables et Réinitialisation de base */
+/* ==================================== */
 :root {
-    --bg: #f7f7f7;
-    --card: #ffffff;
-    --accent: #00b894;
-    /* green */
-    --orange: #ff7a18;
-    --blue: #16a2f5;
-    --muted: #9aa1a6;
-    --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    --radius: 12px;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial;
+    /* Couleurs inspirées de votre image et pour le site */
+    --color-primary: #1AC9A1; /* Le vert turquoise du bouton 'Enregistrer' */
+    --color-secondary: #007bff; /* Un bleu plus classique (pour les autres boutons/liens) */
+    --color-text-dark: #333;
+    --color-text-light: #fff;
+    --color-background-light: #f4f7f6; /* Arrière-plan léger */
+    --color-success: #28a745; /* Vert pour le succès */
+    --color-border: #ddd;
+    
+    /* Typographie */
+    --font-family-main: 'Arial', sans-serif;
+    --font-size-base: 16px;
 }
 
-html,
-body {
-    height: 100%;
-}
-
-body {
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
-    background: linear-gradient(180deg, #f3f7f9 0%, var(--bg) 100%);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 28px 12px;
-    -webkit-font-smoothing: antialiased;
+    padding: 0;
 }
+
+body {
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-base);
+    color: var(--color-text-dark);
+    background-color: var(--color-background-light);
+    line-height: 1.6;
+    min-height: 100vh; /* S'assurer que le body occupe toute la hauteur */
+}
+
+/* ==================================== */
+/* 2. Mise en page générale (Mobile First) */
+/* ==================================== */
 
 .container {
-    width: 100%;
-    max-width: 380px;
-    background: var(--card);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    padding: 22px 18px 28px;
-}
-
-.title {
-    text-align: center;
-    margin-bottom: 8px;
-}
-
-.title h1 {
-    margin: 0;
-    font-size: 28px;
-    letter-spacing: 0.2px;
-}
-
-.subtitle {
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 6px;
-    margin-bottom: 18px;
-}
-
-.date-value { font-weight: 700; }
-
-.form-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 18px;
-}
-
-.label {
-    font-weight: 600;
-    color: #222;
-    font-size: 14px;
-}
-
-.select-wrap {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-select.location {
-    width: 100%;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #e6e9eb;
-    background: #fff;
-    font-size: 14px;
-}
-
-.items-list {
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-}
-
-.item {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    background: transparent;
-}
-
-.item-left {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
-    flex-shrink: 0;
-    font-size: 28px;
-    /* emoji size */
-    line-height: 1;
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: auto;
-    flex-shrink: 0;
-}
-
-.btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    border: 0;
-    color: #fff;
-    font-weight: 700;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.btn.minus {
-    background: var(--orange);
-}
-
-.btn.plus {
-    background: var(--blue);
-}
-
-.count{
-    width:64px;
-    height:44px;
-    border-radius:10px;
-    border:1px solid #eee;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background:#fff;
-    font-weight:700;
-    font-size:18px;
-    color:#222;
-    padding:0 8px;
-    box-sizing:border-box;
-    text-align:center;
-}
-
-/* remove spinner in webkit browsers */
-.count::-webkit-outer-spin-button,
-.count::-webkit-inner-spin-button{
-    -webkit-appearance:none;
-    margin:0;
-}
-/* remove spinner in Firefox */
-.count[type=number]{
-    appearance: none;
-    -moz-appearance: textfield;
-}
-
-.meta {
+    min-height: 100vh;
     width: 100%;
-    display: block;
+    /* Centrage optionnel pour un look de "carte" sur les petits écrans */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff; /* Le contenu peut avoir un fond blanc */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header.title {
     text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 6px
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-primary);
 }
 
-.item-wrap {
-    flex: 1;
-    min-width: 0
-}
-
-.item-row {
-    display: flex;
-    align-items: center;
-    gap: 12px
-}
-
-.item-content {
-    min-width: 0
-}
-
-.item-title {
-    font-weight: 700
-}
-
-.save-row {
-    display: flex;
-    justify-content: center;
-    margin-top: 18px
-}
-
-.save-btn {
-    background: var(--accent);
-    border: 0;
-    color: white;
-    padding: 12px 36px;
-    border-radius: 12px;
+#page-title {
+    font-size: 1.8rem;
+    color: var(--color-success); /* Utiliser une couleur pour le succès */
     font-weight: 700;
-    font-size: 15px;
+}
+
+/* ==================================== */
+/* 3. Contenu de la collecte (Dynamique) */
+/* ==================================== */
+
+#today, #total {
+    flex-grow: 1; /* Permet aux sections de prendre l'espace restant */
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+#today {
+    /* Style pour la liste des items collectés (si vous utilisez des <h2>, <h3>) */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espace entre les lignes */
+    padding: 1rem;
+}
+
+#today h2 {
+    font-size: 1.3rem;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--color-border);
+}
+
+#today h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0.3rem 0.5rem;
+    background-color: var(--color-background-light);
+    border-radius: 4px;
+}
+
+#total {
+    /* Style pour le total */
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1.5rem;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================================== */
+/* 4. Boutons */
+/* ==================================== */
+
+button {
+    /* Base pour tous les boutons */
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 184, 148, 0.18)
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#btnReturn {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+}
+
+#btnReturn:hover {
+    background-color: #16a682; /* Une nuance plus foncée */
+}
+
+#btnReturnIndex {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+}
+
+#btnReturnIndex:hover {
+    background-color: #0056b3; /* Une nuance plus foncée */
+}
+
+/* ==================================== */
+/* 5. Media Queries (Desktop/Tablet) */
+/* ==================================== */
+
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem;
+        max-width: 800px; /* Plus large sur desktop */
+        min-height: auto; /* Laisser le contenu définir la hauteur */
+        margin-top: 5vh; /* Centrage visuel */
+        margin-bottom: 5vh;
+        border-radius: 12px;
+    }
+
+    #page-title {
+        font-size: 2.5rem;
+    }
+
+    /* Aligner les boutons horizontalement sur les grands écrans */
+    main.container > button {
+        display: inline-block;
+        width: calc(50% - 0.5rem); /* Moitié de la largeur moins l'espace */
+    }
+    
+    #btnReturn {
+        margin-right: 1rem;
+    }
 }

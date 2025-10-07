@@ -1,4 +1,4 @@
-import { getUserInfos, assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
+import { getUserInfos, assoDropMenu, getAssolist } from "./fetchs-iris.js";
 
 //éléments du DOM
 const userName = document.getElementById('username');

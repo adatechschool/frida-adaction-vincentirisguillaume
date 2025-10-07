@@ -1,12 +1,12 @@
 /* ============================
-   🌱 STYLES DE BASE (mobile first)
+   🌱 BASE (MOBILE FIRST)
 ============================ */
 body {
   font-family: "Poppins", sans-serif;
   background: #f4f8fb;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
   margin: 0;
 }
@@ -17,47 +17,68 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   padding: 24px;
   width: 90%;
-  max-width: 400px;
-  text-align: center;
+  max-width: 420px;
 }
 
 /* ============================
-   TITRES
+   TITRE
 ============================ */
 .title h1 {
-  margin: 0 0 20px 0;
+  text-align: center;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #222;
+  color: #1a1a1a;
+  margin-bottom: 25px;
 }
 
 /* ============================
-   FORMULAIRES ET TEXTES
+   FORMULAIRE
 ============================ */
 form {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-form p {
+label {
   font-weight: 500;
-  color: #555;
-  margin-bottom: 10px;
+  color: #333;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #dce4ec;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #f9fcff;
+}
+
+input:focus,
+select:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
 }
 
 /* ============================
-   BOUTONS
+   BOUTON
 ============================ */
 button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -66,28 +87,16 @@ button:hover {
 }
 
 /* ============================
-   LOGOS D'ASSOCIATIONS
+   MESSAGES D’ERREUR / ALERTE
 ============================ */
-#logosAsso {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 15px;
-}
-
-#logosAsso img {
-  width: 50px;
-  height: auto;
-  transition: transform 0.25s ease;
-}
-
-#logosAsso img:hover {
-  transform: scale(1.1);
+.error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-top: -8px;
 }
 
 /* ============================
-   🖥️ TABLETTES (≥ 600px)
+   🖥️ TABLETTES (≥600px)
 ============================ */
 @media (min-width: 600px) {
   .container {
@@ -98,13 +107,19 @@ button:hover {
     font-size: 2rem;
   }
 
-  #logosAsso img {
-    width: 60px;
+  input,
+  select {
+    font-size: 1rem;
+    padding: 14px;
+  }
+
+  button {
+    font-size: 1.05rem;
   }
 }
 
 /* ============================
-   💻 DESKTOP (≥ 900px)
+   💻 DESKTOP (≥900px)
 ============================ */
 @media (min-width: 900px) {
   body {
@@ -112,22 +127,11 @@ button:hover {
   }
 
   .container {
-    max-width: 450px;
     padding: 40px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 
   .title h1 {
     font-size: 2.2rem;
   }
-
-  button {
-    font-size: 1.05rem;
-    padding: 14px 20px;
-  }
-
-  #logosAsso {
-    gap: 16px;
-  }
 }
-

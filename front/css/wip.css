@@ -1,3 +1,6 @@
+/* ======================================================= */
+/* VARIABLES ET RÉINITIALISATION (inchangées) */
+/* ======================================================= */
 :root {
     --bg: #f7f7f7;
     --card: #ffffff;
@@ -26,9 +29,12 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* ======================================================= */
+/* STRUCTURE GÉNÉRALE (optimisée mobile) */
+/* ======================================================= */
 .container {
     width: 100%;
-    max-width: 380px;
+    max-width: 380px; /* Limite la largeur sur mobile et petit écran */
     background: var(--card);
     border-radius: 18px;
     box-shadow: var(--shadow);
@@ -56,6 +62,9 @@ body {
 
 .date-value { font-weight: 700; }
 
+/* ======================================================= */
+/* FORMULAIRE ET SÉLECTION (inchangés) */
+/* ======================================================= */
 .form-row {
     display: flex;
     align-items: center;
@@ -85,6 +94,9 @@ select.location {
     font-size: 14px;
 }
 
+/* ======================================================= */
+/* LISTE DES ITEMS (Flexbox) */
+/* ======================================================= */
 .items-list {
     display: flex;
     flex-direction: column;
@@ -113,10 +125,42 @@ select.location {
     line-height: 1;
 }
 
+/* Gère l'espace entre l'icône, le texte et les contrôles */
+.item-wrap {
+    flex: 1; /* Permet au texte de prendre l'espace restant */
+    min-width: 0;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-content {
+    min-width: 0
+}
+
+.item-title {
+    font-weight: 700
+}
+
+.meta {
+    width: 100%;
+    display: block;
+    text-align: left; /* Aligné à gauche pour le mobile */
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 2px /* Réduit l'espace */
+}
+
+/* ======================================================= */
+/* CONTRÔLES (Boutons Compteur) */
+/* ======================================================= */
 .controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Réduit un peu l'espacement pour le mobile */
     margin-left: auto;
     flex-shrink: 0;
 }
@@ -133,6 +177,10 @@ select.location {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn:active {
+    opacity: 0.8;
 }
 
 .btn.minus {
@@ -144,20 +192,23 @@ select.location {
 }
 
 .count{
-    width:64px;
-    height:44px;
-    border-radius:10px;
-    border:1px solid #eee;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background:#fff;
-    font-weight:700;
-    font-size:18px;
-    color:#222;
-    padding:0 8px;
-    box-sizing:border-box;
-    text-align:center;
+    width: 52px; /* Réduit un peu la largeur du compteur */
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    color: #222;
+    padding: 0 4px; /* Réduit le padding pour optimiser l'espace */
+    box-sizing: border-box;
+    text-align: center;
+    /* Assure que l'input ressemble à un label */
+    appearance: none;
+    -moz-appearance: textfield;
 }
 
 /* remove spinner in webkit browsers */
@@ -166,54 +217,73 @@ select.location {
     -webkit-appearance:none;
     margin:0;
 }
-/* remove spinner in Firefox */
-.count[type=number]{
-    appearance: none;
-    -moz-appearance: textfield;
-}
 
-.meta {
-    width: 100%;
-    display: block;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 6px
-}
-
-.item-wrap {
-    flex: 1;
-    min-width: 0
-}
-
-.item-row {
-    display: flex;
-    align-items: center;
-    gap: 12px
-}
-
-.item-content {
-    min-width: 0
-}
-
-.item-title {
-    font-weight: 700
-}
-
+/* ======================================================= */
+/* BOUTON ENREGISTRER (inchangé) */
+/* ======================================================= */
 .save-row {
     display: flex;
     justify-content: center;
-    margin-top: 18px
+    margin-top: 24px; /* Un peu plus d'espace au-dessus du bouton */
 }
 
 .save-btn {
     background: var(--accent);
     border: 0;
     color: white;
-    padding: 12px 36px;
+    padding: 14px 40px; /* Un peu plus grand pour l'ergonomie mobile */
     border-radius: 12px;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 184, 148, 0.18)
+    box-shadow: 0 8px 20px rgba(0, 184, 148, 0.18);
+    transition: transform 0.2s;
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+/* ======================================================= */
+/* MEDIA QUERY : ADAPTATION TABLETTE ET DESKTOP */
+/* ======================================================= */
+
+@media (min-width: 600px) {
+    body {
+        /* Centrage vertical sur les grands écrans */
+        align-items: center;
+    }
+    
+    .container {
+        max-width: 500px; /* Augmente légèrement le conteneur sur tablette */
+        padding: 30px 24px 36px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    /* Redéfinit l'alignement pour optimiser l'espace horizontal sur desktop */
+    .controls {
+        gap: 10px;
+    }
+
+    .count {
+        width: 64px; /* Retour à la largeur originale */
+    }
+    
+    .btn {
+        width: 48px; /* L'élargit un peu pour plus de confort */
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .save-btn {
+        padding: 12px 60px; /* Un peu plus large sur desktop */
+    }
 }
