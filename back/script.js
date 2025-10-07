@@ -249,3 +249,68 @@ app.get("/collects", async (req, res) => {
         res.status(500).json({ e: "impossible de recuperer collects depuis DB NEON" })
     }
 });
+
+//________________________________________________________________________________
+//test ajout route pour les associations
+
+app.get("/volunteers/:asso", async (req, res) => {
+
+    const { asso } = req.params;
+    console.log(asso);
+
+    try {
+        const result = await sql.query("SELECT volunteers.*, associations.name AS association_name FROM volunteers LEFT JOIN associations ON volunteers.association_id = associations.id WHERE associations.name = $1", [asso]);
+        if (result.rows.length === 0) {
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cette association" }));
+        }
+        res.json(result.rows);
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer volunteers lié a cette association depuis DB NEON" })
+
+    }
+});
+// Route pour afficher un bénévole par son id
+
+app.get("/volunteer/:id", async (req, res) => {
+
+    const { id } = req.params;
+    console.log(id);
+
+    try {
+        const result = await sql.query("SELECT * FROM volunteers WHERE id=$1", [id])
+        if (result.rows.length === 0) {
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" }));
+        }
+        res.json(result.rows);
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
+    }
+});
+
+// route pour affichage de l'historique des collectes d'un benevole
+app.get("/collects/volunteer/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await sql.query(
+            `SELECT 
+            collects.location,
+            collects.created_at,
+            volunteers.username,
+            volunteers.points,
+            associations.name AS association_name
+            FROM collects
+            JOIN volunteers on collects.volunteer_id = volunteers.id
+            JOIN associations ON volunteers.association_id = associations.id
+            WHERE volunteers.id = $1
+            ORDER BY collects.created_at DESC`, [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ Error: "il n'y a pas/plus de collects pour ce benevole" });
+        }
+        res.json(result.rows);
+    }
+    catch (e) {
+        res.status(500).json({ e: 'impossible de recuperer collects et volunteers infos from DB' })
+    }
+});
