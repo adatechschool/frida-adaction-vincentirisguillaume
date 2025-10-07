@@ -169,16 +169,16 @@ app.get("/associations", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postCollects", async (req, res) => {
-    const { location, megot, canne, plastique, conserve, canette, volunteer_id } = req.body;
+    const { location ,megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at } = req.body;
 
     if (!location || megot == null || canne == null || plastique == null || conserve == null || canette == null || !volunteer_id) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
         const result = await sql.query(
-            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette, volunteer_id)
-             VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [location, megot, canne, plastique, conserve, canette, volunteer_id]
+            `INSERT INTO collects (location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+            [location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at]
 
         );
         res.status(201).json(result.rows[0]);
@@ -250,6 +250,44 @@ app.get("/collects", async (req, res) => {
     }
 });
 
+//________________________________________________________________________________
+//test ajout route pour les associations
+
+app.get("/volunteers/:asso", async (req, res) => {
+
+    const { asso } = req.params;
+    console.log(asso);
+
+    try {
+        const result = await sql.query("SELECT volunteers.*, associations.name AS association_name FROM volunteers LEFT JOIN associations ON volunteers.association_id = associations.id WHERE associations.name = $1", [asso]);
+        if (result.rows.length === 0) {
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cette association" }));
+        }
+        res.json(result.rows);
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer volunteers lié a cette association depuis DB NEON" })
+
+    }
+});
+// Route pour afficher un bénévole par son id
+
+app.get("/volunteer/:id", async (req, res) => {
+
+    const { id } = req.params;
+    console.log(id);
+
+    try {
+        const result = await sql.query("SELECT * FROM volunteers WHERE id=$1", [id])
+        if (result.rows.length === 0) {
+            throw new Error(res.status(404).json({ Error: "il n'y a pas/plus de volunteer avec cet id" }));
+        }
+        res.json(result.rows);
+    }
+    catch (e) {
+        res.status(500).json({ e: "impossible de recuperer volunteers depuis DB NEON" })
+    }
+});
 
 // route pour affichage de l'historique des collectes d'un benevole
 app.get("/collects/volunteer/:id", async (req, res) => {
@@ -275,5 +313,4 @@ app.get("/collects/volunteer/:id", async (req, res) => {
     catch (e) {
         res.status(500).json({ e: 'impossible de recuperer collects et volunteers infos from DB' })
     }
-
 });
