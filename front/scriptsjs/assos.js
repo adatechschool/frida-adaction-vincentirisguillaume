@@ -1,6 +1,7 @@
 let userLine = document.getElementById('collecte-rows');
 const btnReturn = document.getElementById('btn-return');
 const btnVolunteer = document.getElementById('btn-volunteer');
+const locationFilter = document.getElementById('location-filter');
 
 
 const getVolunteer = async () => {
@@ -83,6 +84,60 @@ const getVolunteersByAssociation = async (associationName) => {
 };
 getVolunteersByAssociation(associationName);
 
+// Ajout des villes dans le select
+const populateLocationFilter = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/volunteers');
+        const data = await response.json();
+        const locations = data.map(volunteer => volunteer.location);
+        const uniqueLocations = [];
+        for (const location of locations) {
+            if (!uniqueLocations.includes(location)) {
+                uniqueLocations.push(location);
+            }
+        } // Remove duplicates
+        console.log("locationData:", uniqueLocations);
+        for (const location of uniqueLocations) {
+            const option = document.createElement('option');
+            option.value = location;
+            option.textContent = location;
+            locationFilter.appendChild(option);
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+};
+
+populateLocationFilter();
+
+// fonction pour filtrer les volontaires par ville choisie
+const filterVolunteersByLocation = async () => {
+    const selectedLocation = locationFilter.value;
+    try {
+        const response = await fetch('http://localhost:3000/volunteers');
+        const data = await response.json();
+        const filteredVolunteers = data.filter(volunteer => volunteer.location === selectedLocation);
+        userLine.innerHTML = ''; // fais disparaitre les rangées précédentes
+        filteredVolunteers.forEach(volunteer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <th scope="row" id=idVolunteer>${volunteer.id}</th>
+                <td>${volunteer.username}</td>
+                <td>${volunteer.points}</td>
+                <td>${volunteer.location}</td>
+                <td>${volunteer.email}</td>
+                <td><button class="remove-btn">supprimer</button></td>
+            `;
+            userLine.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+};
+
+// lance la fonction de filtre a chaque changement dans le select
+locationFilter.addEventListener('change', 
+    filterVolunteersByLocation);
 
 // redirection vers la page d'accueil
 btnReturn.addEventListener("click", async () => {
