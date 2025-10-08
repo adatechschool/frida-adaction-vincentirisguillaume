@@ -31,7 +31,7 @@ app.get("/volunteers", async (req, res) => {
 app.get("/volunteer/:id", async (req, res) => {
 
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
 
     try {
         const result = await sql.query("SELECT * FROM volunteers WHERE id=$1", [id])
@@ -49,19 +49,16 @@ app.get("/volunteer/:id", async (req, res) => {
 // Route pour créer un bénévole
 app.post("/volunteer", async (req, res) => {
     const { username, password, points, association_id, location, email } = req.body;
-    console.log(username);
-
-    if (!username || !email || !location) {
+    if (!username || !email || !location || !password) {
         return res.status(400).json({ error: "Champs manquants" });
     }
     try {
-        // pour plus tard hash passwords CNIL ETC.
-        // password = await bcrypt.hash(password, 10); // 10 = nombre de tours (valeur standard)
+        // Hash du mot de passe
+        const hashedPassword = await bcrypt.hash(password, 10); // 10 = nombre de tours (valeur standard)
         const result = await sql.query(
             `INSERT INTO volunteers (username, password, points, association_id, location, email)
              VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-            [username, password, points, association_id, location, email]
-
+            [username, hashedPassword, points, association_id, location, email]
         );
         res.status(201).json(result.rows[0]);
     } catch (e) {
@@ -194,33 +191,26 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        // Vérifie si un user correspond dans ta table volunteers
+        // Cherche l'utilisateur par username
         const result = await sql.query(
-            "SELECT * FROM volunteers WHERE username=$1 AND password=$2",
-            [username, password]
+            "SELECT * FROM volunteers WHERE username=$1",
+            [username]
         );
-
-        console.log(result.rows[0]);
-
-        // pour plus tard - mdp crypté
-        // const isValid = await bcrypt.compare(password, user.password);
-        // if (isValid) {
-        //     // Connexion OK
-        // }
-
-        if (result.rows.length > 0) {
-
-            // met la ligne resultat ds user
-            const user = result.rows[0];
-
+        if (result.rows.length === 0) {
+            // Utilisateur non trouvé
+            return res.status(401).json({ error: "Identifiant ou mot de passe incorrect" });
+        }
+        const user = result.rows[0];
+        // Vérifie le mot de passe avec bcrypt
+        const isValid = await bcrypt.compare(password, user.password);
+        if (isValid) {
             // Succès → renvoie message + renvoie user.username et user.id
             return res.status(200).json({
                 message: "Connexion réussie",
                 id: user.id,
                 username: user.username
             });
-        }
-        else {
+        } else {
             // Échec
             return res.status(401).json({ error: "Identifiant ou mot de passe incorrect" });
         }
@@ -231,7 +221,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log("HELLO SERVER");
+    // console.log("HELLO SERVER");
 })
 
 
@@ -240,7 +230,7 @@ app.listen(3000, () => {
 //Ajouter route vers Collects
 
 app.get("/collects", async (req, res) => {
-    console.log("GET /collects");
+    // console.log("GET /collects");
     try {
         const result = await sql.query("SELECT * FROM collects")
         res.json(result.rows)
@@ -256,7 +246,7 @@ app.get("/collects", async (req, res) => {
 app.get("/volunteers/:asso", async (req, res) => {
 
     const { asso } = req.params;
-    console.log(asso);
+    // console.log(asso);
 
     try {
         const result = await sql.query("SELECT volunteers.*, associations.name AS association_name FROM volunteers LEFT JOIN associations ON volunteers.association_id = associations.id WHERE associations.name = $1", [asso]);
@@ -275,7 +265,7 @@ app.get("/volunteers/:asso", async (req, res) => {
 app.get("/volunteer/:id", async (req, res) => {
 
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
 
     try {
         const result = await sql.query("SELECT * FROM volunteers WHERE id=$1", [id])

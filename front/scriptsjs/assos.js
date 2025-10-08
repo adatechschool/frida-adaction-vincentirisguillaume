@@ -1,11 +1,50 @@
+
 let userLine = document.getElementById('collecte-rows');
 const btnReturn = document.getElementById('btn-return');
 const btnVolunteer = document.getElementById('btn-volunteer');
 const locationFilter = document.getElementById('location-filter');
 
 
+// Création de la barre de chargement progressive et centrée (styles dans CSS)
+const loadingBarContainer = document.createElement('div');
+loadingBarContainer.id = 'loading-bar-container';
+const loadingBar = document.createElement('div');
+loadingBar.id = 'loading-bar';
+loadingBarContainer.appendChild(loadingBar);
+document.body.appendChild(loadingBarContainer);
+
+let loadingInterval = null;
+
+function showLoading() {
+    loadingBarContainer.style.display = 'block';
+    loadingBarContainer.style.opacity = '1';
+    loadingBar.style.width = '0%';
+    let progress = 0;
+    clearInterval(loadingInterval);
+    loadingInterval = setInterval(() => {
+        if (progress < 90) {
+            progress += Math.random() * 10 + 5; // Avance de façon aléatoire
+            if (progress > 90) progress = 90;
+            loadingBar.style.width = progress + '%';
+        }
+    }, 200);
+}
+function hideLoading() {
+    clearInterval(loadingInterval);
+    loadingBar.style.width = '100%';
+    setTimeout(() => {
+        loadingBarContainer.style.opacity = '0';
+        setTimeout(() => {
+            loadingBarContainer.style.display = 'none';
+            loadingBar.style.width = '0%';
+        }, 300);
+    }, 400);
+}
+
+
 const getVolunteer = async () => {
-// recuperation des données de chaque volontaire depuis la base de données
+    // recuperation des données de chaque volontaire depuis la base de données
+    showLoading();
     try {
         const response = await fetch('http://localhost:3000/volunteers');
         const data = await response.json();
@@ -24,8 +63,7 @@ const getVolunteer = async () => {
             console.log("volunteer.id:", volunteer.id)
             let idVolunteer = volunteer.id;
 
-// suppression d'un volontaire au choix
-
+            // suppression d'un volontaire au choix
             let btnRemove = row.querySelector('.remove-btn');
             btnRemove.addEventListener('click', async () => {
                 try {
@@ -46,6 +84,8 @@ const getVolunteer = async () => {
         });
     } catch (error) {
         console.error('Erreur:', error);
+    } finally {
+        hideLoading();
     }
 };
 
@@ -61,6 +101,7 @@ const associationName = urlParams.get('asso');
 console.log("associationName:", associationName);
 // function pour afficher les voluntaire d'une asso
 const getVolunteersByAssociation = async (associationName) => {
+    showLoading();
     try {
         const response = await fetch(`http://localhost:3000/volunteers/${associationName}`);
         const data = await response.json();
@@ -80,12 +121,15 @@ const getVolunteersByAssociation = async (associationName) => {
         });
     } catch (error) {
         console.error('Erreur:', error);
+    } finally {
+        hideLoading();
     }
 };
 getVolunteersByAssociation(associationName);
 
 // Ajout des villes dans le select
 const populateLocationFilter = async () => {
+    showLoading();
     try {
         const response = await fetch('http://localhost:3000/volunteers');
         const data = await response.json();
@@ -105,6 +149,8 @@ const populateLocationFilter = async () => {
         }
     } catch (error) {
         console.error('Erreur:', error);
+    } finally {
+        hideLoading();
     }
 };
 
@@ -113,6 +159,7 @@ populateLocationFilter();
 // fonction pour filtrer les volontaires par ville choisie
 const filterVolunteersByLocation = async () => {
     const selectedLocation = locationFilter.value;
+    showLoading();
     try {
         const response = await fetch('http://localhost:3000/volunteers');
         const data = await response.json();
@@ -132,6 +179,8 @@ const filterVolunteersByLocation = async () => {
         });
     } catch (error) {
         console.error('Erreur:', error);
+    } finally {
+        hideLoading();
     }
 };
 

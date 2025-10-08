@@ -138,3 +138,11 @@ td {
     font-size: 1.8rem;
   }
 }
+
+/* ajout d'une image dans le main */
+main {
+  background-image: url('../images/assos-bg.png');
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: 150px;
+}

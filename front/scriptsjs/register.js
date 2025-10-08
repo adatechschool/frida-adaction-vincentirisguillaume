@@ -1,4 +1,4 @@
-import { assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
+import { assoDropMenu, getAssolist } from "./fetchs-iris.js";
 
 const form = document.getElementById('form');
 const nameInput = document.querySelector('.name');
