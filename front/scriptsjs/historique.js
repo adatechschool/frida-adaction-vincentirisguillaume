@@ -27,7 +27,7 @@ const printCard = async (index, data) => {
         console.log(modifBtn.value)
         console.log(data[index].id);
         
-        localStorage.setItem("association_edit_id", modifBtn.value)
+        // localStorage.setItem("association_edit_id", modifBtn.value)
         // localStorage.setItem("collecte_edit_id", index);
 
         // window.location.href = "./wip.html"

@@ -2,9 +2,9 @@ import { getUserInfos } from "./fetchs-iris.js";
 
 // localStorage.clear(); // Pour tests, à retirer en prod
 const volunteer = localStorage.getItem("id");
-const assoId = localStorage.getItem("association_edit_id")
-console.log("volunteer_id:", volunteer);
-console.log("asso_id:", assoId);
+// const assoId = localStorage.getItem("association_edit_id")
+// console.log("volunteer_id:", volunteer);
+// console.log("asso_id:", assoId);
 
 // Utilitaire pour récupérer les valeurs de tous les compteurs
 function getAllCounts() {
@@ -85,63 +85,63 @@ async function sendToDatabase() {
   }
 }
 
-// Fonction pour modifier la collecte ds la base neon
-async function updateDatabase() {
+// // Fonction pour modifier la collecte ds la base neon
+// async function updateDatabase() {
 
-  //fetch sur les infos actuelles du user
-  const userInfos = await getUserInfos()
+//   //fetch sur les infos actuelles du user
+//   const userInfos = await getUserInfos()
 
-  //compteur numeros deux uniquement//
-  const location = document.getElementById('location-select').value;
-  const megot = getAllCounts().map(o => o.count)[0];
-  const plastique = getAllCounts().map(o => o.count)[1];
-  const canette = getAllCounts().map(o => o.count)[2];
-  const canne = getAllCounts().map(o => o.count)[3];
-  const conserve = getAllCounts().map(o => o.count)[4];
+//   //compteur numeros deux uniquement//
+//   const location = document.getElementById('location-select').value;
+//   const megot = getAllCounts().map(o => o.count)[0];
+//   const plastique = getAllCounts().map(o => o.count)[1];
+//   const canette = getAllCounts().map(o => o.count)[2];
+//   const canne = getAllCounts().map(o => o.count)[3];
+//   const conserve = getAllCounts().map(o => o.count)[4];
 
-  const total = megot + plastique + canette + canne + conserve;
+//   const total = megot + plastique + canette + canne + conserve;
 
 
  
-  if(total === 0)
-    return;
+//   if(total === 0)
+//     return;
 
-    const now = new Date().toISOString();
+//     const now = new Date().toISOString();
   
-  //_________________________//
+//   //_________________________//
   
 
 
-  try {
-    const response = await fetch('http://localhost:3000/postCollects', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        location: location,
-        megot: megot,
-        plastique: plastique,
-        canette: canette,
-        canne:  canne,
-        conserve: conserve,
-        volunteer_id: volunteer,
-        updated_at: now,
-        association_id: assoId
-      })
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+//   try {
+//     const response = await fetch('http://localhost:3000/postCollects', {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         location: location,
+//         megot: megot,
+//         plastique: plastique,
+//         canette: canette,
+//         canne:  canne,
+//         conserve: conserve,
+//         volunteer_id: volunteer,
+//         updated_at: now,
+//         association_id: assoId
+//       })
+//     });
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
 
-    const result = await response.json();
-    console.log('Sauvegarde réussie:', result);
-    return result;
-  } catch (error) {
-    console.error('Erreur lors de la sauvegarde:', error);
-    throw error;
-  }
-}
+//     const result = await response.json();
+//     console.log('Sauvegarde réussie:', result);
+//     return result;
+//   } catch (error) {
+//     console.error('Erreur lors de la sauvegarde:', error);
+//     throw error;
+//   }
+// }
 
 // Gestion des boutons + et -
 document.querySelectorAll('.btn').forEach(btn => {
@@ -190,15 +190,15 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
     return;
   }
 
-  if (volunteer && assoId){
-    try{
-      updateDatabase()
-    }
-    catch (error){console.error(`erreur lors de l'update de la collecte id ${collectId}`)
+  // if (volunteer && assoId){
+  //   try{
+  //     updateDatabase()
+  //   }
+  //   catch (error){console.error(`erreur lors de l'update de la collecte id ${collectId}`)
 
 
-    }
-  }
+  //   }
+  
 
   try {
     saveBtn.disabled = true;
