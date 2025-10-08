@@ -32,6 +32,28 @@ body {
   margin-bottom: 16px;
 }
 
+#btn-return {
+    border: 0;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    cursor: pointer;
+   
+}
+
+#btn-volunteer {
+    background-color: #00b894;
+    border: 0;
+    color: white;
+    padding: 10px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 184, 148, 0.18);
+    transition: transform 0.2s;
+}
+
 /* ===== NOMBRE DE COLLECTES ===== */
 #rows-count {
   text-align: center;
@@ -83,6 +105,10 @@ td {
   color: #333;
   border-bottom: 1px solid #e5e7eb;
   word-break: break-word;
+}
+
+#collecte-table{
+  margin-top: 1.3rem;
 }
 
 /* ===== RESPONSIVE MOBILE ===== */
@@ -138,3 +164,4 @@ td {
     font-size: 1.8rem;
   }
 }
+
