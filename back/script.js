@@ -313,6 +313,7 @@ app.get("/collects/volunteer/:id", async (req, res) => {
             JOIN associations ON collects.association_id = associations.id
             WHERE volunteers.id = $1
             ORDER BY collects.id DESC`, [id]);
+            
         if (result.rows.length === 0) {
             return res.status(404).json({ Error: "il n'y a pas/plus de collects pour ce benevole" });
         }
