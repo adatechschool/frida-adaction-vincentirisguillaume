@@ -2,13 +2,13 @@ import { fetchUserPoints, userId } from './fetchs-iris.js';
 
 
 const todayCollect = document.getElementById('today');
-const totalPoints = document.getElementById('total');
+
 const btnReturnProfil = document.getElementById('btnReturnIndex');
 
 let points;
+let collectId;
 
-
-
+// retourne les points et le html en dynamique
 const displayToday = async () => {
 
     try {
@@ -26,13 +26,14 @@ const displayToday = async () => {
 
         // Récupérer la dernière collecte
         const lastCollect = data.at(-1);
+        collectId = lastCollect.id;
 
         const totalPointsMegots = (lastCollect.megot * ptsMegots);
         const totalPointsCanne = (lastCollect.canne * ptsCanne);
         const totalPointsPlastique = (lastCollect.plastique * ptsPlastique);
         const totalPointsConserve = (lastCollect.conserve * ptsConserve);
         const totalPointsCanette = (lastCollect.canette * ptsCanette);
-        points = totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve;
+        points = totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve + totalPointsCanette;
         row.innerHTML = `
             <h2> Collecte de la journée</h2>       
             <h3>${lastCollect.megot} Mégot(s) = ${totalPointsMegots} points</h3>
@@ -40,9 +41,9 @@ const displayToday = async () => {
             <h3>${lastCollect.plastique} Plastique(s) = ${totalPointsPlastique} points</h3>
              <h3>${lastCollect.conserve} Conserve(s) = ${totalPointsConserve} points</h3>
             <h3>${lastCollect.canette} Canette(s) = ${totalPointsCanette} points</h3>
-            <h2>Points de la journée = ${totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve} points</h2>`;
+            <h2>Points de la journée = ${totalPointsMegots + totalPointsCanne + totalPointsPlastique + totalPointsConserve + totalPointsCanette} points</h2>`;
         todayCollect.appendChild(row);
-        return points;
+        return points
     }
     catch (error) {
         console.error('Error fetching collects:', error);
@@ -51,13 +52,15 @@ const displayToday = async () => {
 }
 
 
-
-async function logpoints() {
+// envoie les infos ds la db
+async function countUserPoints() {
     points = await displayToday();
     console.log("points:", points);
+    
 
     const userPoints = await fetchUserPoints(userId);
     console.log("userPoints:", userPoints);
+    console.log(collectId)
 
     try {
         fetch(`http://localhost:3000/volunteer/points/${userId}`, {
@@ -65,8 +68,9 @@ async function logpoints() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ points: points + userPoints})
+            body: JSON.stringify({ points: (points + userPoints), collect_points: points, collect_id: collectId})
         });
+        
 
     } catch (error) {
         console.error('Error updating points:', error);
@@ -74,8 +78,14 @@ async function logpoints() {
 
 }
 
-logpoints()
+countUserPoints()
+
+
+
 
 btnReturnProfil.addEventListener("click", () => {
+
     window.location.href = "profile.html";
 })
+
+

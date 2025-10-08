@@ -106,23 +106,38 @@ app.put("/volunteer/:id", async (req, res) => {
     }
 });
 
-//Route pour ajouter des points a une collecte faite + benevole
+//Route pour ajouter des points a un benevole apres une collecte
 app.put("/volunteer/points/:id", async (req, res) => {
     const { id } = req.params;
-    const { points } = req.body;
+    const { points, collect_points , collect_id} = req.body;
     try {
         const result = await sql.query(
-            "UPDATE volunteers SET points = $1 WHERE id=$2 RETURNING *",
-            [points, id]
-        );
-        if (result.rows.length === 0) {
-            return res.status(404).json({ error: "Bénévole non trouvé" });
-        }
-        res.json(result.rows[0]);
+            `WITH collecte AS (
+            UPDATE collects
+            SET collect_points = $1
+            WHERE id = $2
+            AND volunteer_id = $3
+            RETURNING collect_points
+   )
+   UPDATE volunteers
+   SET points = $4
+   FROM collecte
+   WHERE volunteers.id = $3
+   RETURNING volunteers.*`,
+   
+   [collect_points, collect_id, id, points]);
+       
+        
+if (result.rows.length === 0) {
+    return res.status(404).json({ error: "Bénévole non trouvé" });
+}
+res.json(result.rows[0]);
     } catch (e) {
-        res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
-    }
+    res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
+}
 });
+
+
 
 
 // Route JOIN infos profil + nom asso --> mais PAS le mdp !!!
@@ -169,7 +184,7 @@ app.get("/associations", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postCollects", async (req, res) => {
-    const { location ,megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at } = req.body;
+    const { location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at } = req.body;
 
     if (!location || megot == null || canne == null || plastique == null || conserve == null || canette == null || !volunteer_id) {
         return res.status(400).json({ error: "Champs manquants" });
@@ -295,6 +310,7 @@ app.get("/collects/volunteer/:id", async (req, res) => {
     try {
         const result = await sql.query(
             `SELECT 
+            collects.collect_points,
             collects.location,
             collects.created_at,
             volunteers.username,
@@ -304,7 +320,7 @@ app.get("/collects/volunteer/:id", async (req, res) => {
             JOIN volunteers on collects.volunteer_id = volunteers.id
             JOIN associations ON volunteers.association_id = associations.id
             WHERE volunteers.id = $1
-            ORDER BY collects.created_at DESC`, [id]);
+            ORDER BY collects.id DESC`, [id]);
         if (result.rows.length === 0) {
             return res.status(404).json({ Error: "il n'y a pas/plus de collects pour ce benevole" });
         }
