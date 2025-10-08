@@ -1,4 +1,4 @@
-import { fetchUserPoints, userId } from "./fetchs-iris.js";
+import { fetchUserPoints, userId } from './fetchs-iris.js';
 
 
 const todayCollect = document.getElementById('today');

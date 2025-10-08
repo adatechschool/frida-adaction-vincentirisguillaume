@@ -43,9 +43,9 @@ addEventListener("load", () => {
     })
   
        historiqueBtn.addEventListener("click", () => {
-        localStorage.clear();
         window.location.href = "historique.html";
     })
+    
       deconnectBtn.addEventListener("click", () => {
         localStorage.clear();
         window.location.href = "./index.html";
