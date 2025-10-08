@@ -1,6 +1,10 @@
+import { getUserInfos } from "./fetchs-iris.js";
+
 // localStorage.clear(); // Pour tests, à retirer en prod
 const volunteer = localStorage.getItem("id");
+const assoId = localStorage.getItem("association_edit_id")
 console.log("volunteer_id:", volunteer);
+console.log("asso_id:", assoId);
 
 // Utilitaire pour récupérer les valeurs de tous les compteurs
 function getAllCounts() {
@@ -20,8 +24,14 @@ function getAllCounts() {
   return results;
 }
 
+
+
+
 // Fonction pour envoyer les données à la base Neon
 async function sendToDatabase() {
+
+  //fetch sur les infos actuelles du user
+  const userInfos = await getUserInfos()
 
   //compteur numeros deux uniquement//
   const location = document.getElementById('location-select').value;
@@ -30,8 +40,10 @@ async function sendToDatabase() {
   const canette = getAllCounts().map(o => o.count)[2];
   const canne = getAllCounts().map(o => o.count)[3];
   const conserve = getAllCounts().map(o => o.count)[4];
-  console.log("location:", location)
-  const total = megot + plastique + canette + canne + conserve
+
+  const total = megot + plastique + canette + canne + conserve;
+
+
  
   if(total === 0)
     return;
@@ -39,6 +51,8 @@ async function sendToDatabase() {
     const now = new Date().toISOString();
   
   //_________________________//
+  
+
 
   try {
     const response = await fetch('http://localhost:3000/postCollects', {
@@ -54,7 +68,66 @@ async function sendToDatabase() {
         canne:  canne,
         conserve: conserve,
         volunteer_id: volunteer,
-        created_at: now
+        created_at: now,
+        association_id: userInfos[0].association_id
+      })
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('Sauvegarde réussie:', result);
+    return result;
+  } catch (error) {
+    console.error('Erreur lors de la sauvegarde:', error);
+    throw error;
+  }
+}
+
+// Fonction pour modifier la collecte ds la base neon
+async function updateDatabase() {
+
+  //fetch sur les infos actuelles du user
+  const userInfos = await getUserInfos()
+
+  //compteur numeros deux uniquement//
+  const location = document.getElementById('location-select').value;
+  const megot = getAllCounts().map(o => o.count)[0];
+  const plastique = getAllCounts().map(o => o.count)[1];
+  const canette = getAllCounts().map(o => o.count)[2];
+  const canne = getAllCounts().map(o => o.count)[3];
+  const conserve = getAllCounts().map(o => o.count)[4];
+
+  const total = megot + plastique + canette + canne + conserve;
+
+
+ 
+  if(total === 0)
+    return;
+
+    const now = new Date().toISOString();
+  
+  //_________________________//
+  
+
+
+  try {
+    const response = await fetch('http://localhost:3000/postCollects', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        location: location,
+        megot: megot,
+        plastique: plastique,
+        canette: canette,
+        canne:  canne,
+        conserve: conserve,
+        volunteer_id: volunteer,
+        updated_at: now,
+        association_id: assoId
       })
     });
     if (!response.ok) {
@@ -99,6 +172,7 @@ document.querySelectorAll('.count').forEach(input => {
   });
 });
 
+
 // Gestion du bouton Enregistrer avec feedback visuel
 document.getElementById('save-btn')?.addEventListener('click', async () => {
   const saveBtn = document.getElementById('save-btn');
@@ -116,6 +190,16 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
     return;
   }
 
+  if (volunteer && assoId){
+    try{
+      updateDatabase()
+    }
+    catch (error){console.error(`erreur lors de l'update de la collecte id ${collectId}`)
+
+
+    }
+  }
+
   try {
     saveBtn.disabled = true;
     saveBtn.textContent = 'Sauvegarde...';
@@ -127,6 +211,9 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
       saveBtn.textContent = originalText;
       saveBtn.disabled = false;
     }, 2000);
+
+   //userInfos[0].association_name
+
     window.location.href = "total.html";
   } catch (error) {
     console.error('Erreur Lors de la sauvegarde:', error);

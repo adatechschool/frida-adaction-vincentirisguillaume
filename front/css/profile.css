@@ -3,6 +3,8 @@
 ============================ */
 
 body {
+  
+  flex-direction: column;
   font-family: "Poppins", sans-serif;
   background: #f4f8fb;
   margin: 0;
@@ -17,6 +19,8 @@ body {
 /* ===== Profile Card ===== */
 #profil-info,
 #profile-actions {
+  display:flex;
+  flex-direction: column;
   width: 100%;
   margin-bottom: 16px;
 }
