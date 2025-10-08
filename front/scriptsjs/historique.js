@@ -19,8 +19,19 @@ const printCard = async (index, data) => {
     nouvelleBalise('div', `Association : ${data[index].association_name}`, container).id = `association-collect${index}`
     const date = data[index].created_at
     nouvelleBalise('div', `Date : ${dateFormat(date)}`, container).id = `date-collect${index}`
-    nouvelleBalise('button', 'editer', container).id = `btn-modifier${index}`
-    htmlContent.innerHTML += "<br>";
+    const modifBtn = nouvelleBalise('button', 'editer', container)
+    modifBtn.value = data[index].association_id
+    modifBtn.id = `btn-modifier${index}`
+    modifBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log(modifBtn.value)
+        console.log(data[index].id);
+        
+        localStorage.setItem("association_edit_id", modifBtn.value)
+        // localStorage.setItem("collecte_edit_id", index);
+
+        // window.location.href = "./wip.html"
+    });
 }
 
 
@@ -30,6 +41,7 @@ const showHisto = async () => {
     console.log(await getHistoInfo(userId));
 
     const collect = await getHistoInfo(userId);
+    
     dateFormat(collect[0].created_at)
     for (let i = 0; i < collect.length; i++) {
 
