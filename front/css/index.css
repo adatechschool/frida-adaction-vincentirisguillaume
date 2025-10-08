@@ -35,10 +35,11 @@ body {
    FORMULAIRES ET TEXTES
 ============================ */
 form {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 form p {
+  font-size: 1.3rem;
   font-weight: 500;
   color: #555;
   margin-bottom: 10px;
