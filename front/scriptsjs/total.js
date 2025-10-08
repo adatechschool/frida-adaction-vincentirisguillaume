@@ -1,8 +1,8 @@
-import { fetchUserPoints, userId } from './fetchs-user-assos.js';
+import { fetchUserPoints, userId } from './fetchs-iris.js';
 
 
 const todayCollect = document.getElementById('today');
-const totalPoints = document.getElementById('total');
+// const totalPoints = document.getElementById('total');
 const btnReturnProfil = document.getElementById('btnReturnIndex');
 
 let points;

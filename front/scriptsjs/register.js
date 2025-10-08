@@ -1,4 +1,4 @@
-import { assoDropMenu, getAssolist } from "./fetchs-user-assos.js";
+import { assoDropMenu, getAssolist } from "./fetchs-iris.js";
 
 const form = document.getElementById('form');
 const nameInput = document.querySelector('.name');
@@ -8,9 +8,41 @@ const emailInput2 = document.getElementById('email2');
 const associationSelect = document.querySelector('.choixAsso');
 const passwordInput = document.querySelector('.pass');
 
+let validCities = []; // <-- On garde ici la liste des villes valides
+
 //menu deroulant des associations
 assoDropMenu(await getAssolist(), associationSelect);
 
+
+// Autocomplétion des villes via l'API geo.api.gouv.fr
+const datalist = document.getElementById('communes');
+
+cityInput.addEventListener('input', async (e) => {
+    const query = e.target.value.trim();
+    if (query.length < 2) return;
+
+    const response = await fetch(`https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(query)}&fields=departement&boost=population&limit=5`);
+    const data = await response.json();
+
+    console.log("data", data)
+
+    if (!data || data.length === 0) {
+        validCities = []; // aucune ville trouvée
+        return;
+    }
+    datalist.innerHTML = '';
+
+    validCities = data.map(commune => commune.nom); // stocke les noms valides
+
+    data.forEach(commune => {
+        const option = document.createElement('option');
+        option.value = commune.nom;
+        datalist.appendChild(option);
+    });
+});
+
+
+// Validation du formulaire
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -29,6 +61,12 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
+      // 🔍 Vérifie que la ville saisie correspond à une ville valide
+    if (!validCities.includes(location)) {
+        alert("Veuillez sélectionner une ville valide depuis la liste proposée !");
+        return;
+    }
+
     try {
         const response = await fetch('http://localhost:3000/volunteer', {
             method: 'POST',
@@ -41,7 +79,7 @@ form.addEventListener("submit", async (e) => {
                 email,
                 password,
                 association_id
-                
+
             })
         });
 
@@ -57,4 +95,6 @@ form.addEventListener("submit", async (e) => {
         alert("Erreur lors de l'inscription");
     }
 });
+
+
 
