@@ -57,7 +57,7 @@ const getVolunteer = async () => {
                 <td>${volunteer.points}</td>
                 <td>${volunteer.location}</td>
                 <td>${volunteer.email}</td>
-                <td><button class="remove-btn">supprimer</button></td>
+                <td><button class="remove-btn">x</button></td>
             `;
             userLine.appendChild(row);
             console.log("volunteer.id:", volunteer.id)
@@ -115,7 +115,7 @@ const getVolunteersByAssociation = async (associationName) => {
                 <td>${volunteer.points}</td>
                 <td>${volunteer.location}</td>
                 <td>${volunteer.email}</td>
-                <td><button class="remove-btn">supprimer</button></td>
+                <td><button class="remove-btn">x</button></td>
             `;
             userLine.appendChild(row);
         });
