@@ -1,0 +1,22 @@
+/* Barre de chargement centrée et progressive */
+#loading-bar-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 20px;
+  background: #eee;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 9999;
+  display: none;
+  transition: opacity 0.3s;
+}
+#loading-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+  border-radius: 10px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1);
+}

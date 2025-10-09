@@ -30,7 +30,7 @@ CREATE TABLE "collects"(
 ALTER TABLE
     "collects" ADD PRIMARY KEY("id");
 ALTER TABLE
-    "collects" ADD CONSTRAINT "collects_volunteer_id_foreign" FOREIGN KEY("volunteer_id") REFERENCES "volunteers"("id");
+    "collects" ADD CONSTRAINT "collects_volunteer_id_foreign" FOREIGN KEY("volunteer_id") REFERENCES "volunteers"("id") ON DELETE CASCADE;
 ALTER TABLE
     "volunteers" ADD CONSTRAINT "volunteers_association_id_foreign" FOREIGN KEY("association_id") REFERENCES "associations"("id");
 
