@@ -1,0 +1,164 @@
+:root {
+  --color-primary: #1AC9A1;
+  --color-secondary: #007bff;
+  --color-text-dark: #333;
+  --color-text-light: #fff;
+  --color-background-light: #f4f7f6;
+  --color-border: #ddd;
+  --font-family-main: 'Arial', sans-serif;
+  --font-size-base: 16px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Corps de la page === */
+body {
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-base);
+  color: var(--color-text-dark);
+  background-color: var(--color-background-light);
+  line-height: 1.6;
+  background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118 (1).jpg");
+  background-size: cover;
+  background-position: center;
+  
+}
+
+/* === Header === */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--color-secondary);
+  color: var(--color-text-light);
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+#logoAdaction {
+  width: 250px;
+  height: auto;
+  margin: auto;
+  text-align: center;
+}
+
+/* === Footer === */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--color-secondary);
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+/* === Contenu principal === */
+h1 {
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 2rem;
+  margin-top: 120px; /* décalage pour le header */
+  margin-bottom: 20px;
+}
+
+/* Le conteneur principal */
+#histo-content {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 95%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px; /* espace avant le footer */
+  box-sizing: border-box;
+  /* layout cards as a responsive grid */
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: single column */
+  gap: 1rem;
+}
+
+/* === Les cartes dynamiques === */
+.container, .card {
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1rem;
+  /* remove extra bottom margin because grid gap handles spacing */
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%; /* ensure cards fill grid cell */
+}
+
+.container:hover, .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+.container div, .card div {
+  font-size: 1rem;
+  color: var(--color-text-dark);
+  margin: 0.3rem 0;
+}
+
+/* === Boutons === */
+.container button, .card button {
+  background-color: var(--color-secondary);
+  color: var(--color-text-light);
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.container button:hover, .card button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* === Responsive === */
+@media (min-width: 768px) {
+  #histo-content {
+    padding: 2rem;
+    max-width: 900px;
+    /* 2 columns on tablet */
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  h1 {
+    font-size: 2.4rem;
+    margin-top: 130px;
+  }
+}
+
+@media (min-width: 1100px) {
+  #histo-content {
+    /* 3 columns on wide screens */
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+  }
+}
+
+/* Make card buttons align to the start and not overflow */
+.container button, .card button {
+  display: inline-block;
+  white-space: nowrap;
+}

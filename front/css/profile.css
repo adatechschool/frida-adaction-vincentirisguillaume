@@ -14,6 +14,26 @@ body {
   align-items: flex-start;
   padding: 24px 14px;
   color: #111827;
+  background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118\ \(1\).jpg");
+  background-size: cover; 
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
+  
 }
 
 /* ===== Profile Card ===== */
@@ -26,9 +46,12 @@ body {
 }
 
 #profil-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   background: #ffffff;
   border-radius: 16px;
-  padding: 16px;
+  padding: 30px;
+  gap: 10px;
   box-shadow: 0 4px 12px rgba(17, 24, 39, 0.06);
 }
 
@@ -52,8 +75,8 @@ body {
 
 /* ===== Buttons smaller version ===== */
 #profile-actions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 8px; /* less spacing between buttons */
 }
 
@@ -71,20 +94,21 @@ body {
 
 /* Primary (blue) buttons */
 #new-collect-btn,
-#edit-profile-btn {
+#edit-profile-btn,
+#historique-btn {
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: #fff;
   box-shadow: 0 4px 10px rgba(0, 114, 255, 0.18);
 }
 
 #new-collect-btn:hover,
-#edit-profile-btn:hover {
+#edit-profile-btn:hover,
+#historique-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 114, 255, 0.22);
 }
 
 /* Secondary (white) buttons */
-#historique-btn,
 #deconnect-btn {
   background: #ffffff;
   color: #0f172a;
@@ -92,7 +116,6 @@ body {
   box-shadow: 0 3px 8px rgba(10, 20, 34, 0.03);
 }
 
-#historique-btn:hover,
 #deconnect-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 12px rgba(10, 20, 34, 0.06);
@@ -101,7 +124,22 @@ body {
 /* Disconnect button - light red tone */
 #deconnect-btn {
   border-color: rgba(211, 47, 47, 0.1);
-  color: #b91c1c;
+  color: white;
+  background-color: #b91c1c;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ===== Tablet (≥600px) ===== */
@@ -132,7 +170,6 @@ body {
 @media (min-width: 900px) {
   body {
     align-items: center;
-    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
   }
 
   .page-wrapper {

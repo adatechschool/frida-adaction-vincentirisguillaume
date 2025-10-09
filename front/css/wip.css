@@ -27,6 +27,26 @@ body {
     justify-content: center;
     padding: 28px 12px;
     -webkit-font-smoothing: antialiased;
+    background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118\ \(1\).jpg");
+    background-size: cover;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
+  
 }
 
 /* ======================================================= */
@@ -34,7 +54,8 @@ body {
 /* ======================================================= */
 .container {
     width: 100%;
-    max-width: 380px; /* Limite la largeur sur mobile et petit écran */
+    max-width: 380px;
+    /* Limite la largeur sur mobile et petit écran */
     background: var(--card);
     border-radius: 18px;
     box-shadow: var(--shadow);
@@ -60,7 +81,9 @@ body {
     margin-bottom: 18px;
 }
 
-.date-value { font-weight: 700; }
+.date-value {
+    font-weight: 700;
+}
 
 /* ======================================================= */
 /* FORMULAIRE ET SÉLECTION (inchangés) */
@@ -127,7 +150,8 @@ select.location {
 
 /* Gère l'espace entre l'icône, le texte et les contrôles */
 .item-wrap {
-    flex: 1; /* Permet au texte de prendre l'espace restant */
+    flex: 1;
+    /* Permet au texte de prendre l'espace restant */
     min-width: 0;
 }
 
@@ -148,10 +172,12 @@ select.location {
 .meta {
     width: 100%;
     display: block;
-    text-align: left; /* Aligné à gauche pour le mobile */
+    text-align: left;
+    /* Aligné à gauche pour le mobile */
     color: var(--muted);
     font-size: 12px;
-    margin-top: 2px /* Réduit l'espace */
+    margin-top: 2px
+        /* Réduit l'espace */
 }
 
 /* ======================================================= */
@@ -160,7 +186,8 @@ select.location {
 .controls {
     display: flex;
     align-items: center;
-    gap: 8px; /* Réduit un peu l'espacement pour le mobile */
+    gap: 8px;
+    /* Réduit un peu l'espacement pour le mobile */
     margin-left: auto;
     flex-shrink: 0;
 }
@@ -179,6 +206,7 @@ select.location {
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
 .btn:active {
     opacity: 0.8;
 }
@@ -191,8 +219,9 @@ select.location {
     background: var(--blue);
 }
 
-.count{
-    width: 52px; /* Réduit un peu la largeur du compteur */
+.count {
+    width: 52px;
+    /* Réduit un peu la largeur du compteur */
     height: 44px;
     border-radius: 10px;
     border: 1px solid #eee;
@@ -203,7 +232,8 @@ select.location {
     font-weight: 700;
     font-size: 18px;
     color: #222;
-    padding: 0 4px; /* Réduit le padding pour optimiser l'espace */
+    padding: 0 4px;
+    /* Réduit le padding pour optimiser l'espace */
     box-sizing: border-box;
     text-align: center;
     /* Assure que l'input ressemble à un label */
@@ -213,9 +243,9 @@ select.location {
 
 /* remove spinner in webkit browsers */
 .count::-webkit-outer-spin-button,
-.count::-webkit-inner-spin-button{
-    -webkit-appearance:none;
-    margin:0;
+.count::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* ======================================================= */
@@ -224,14 +254,16 @@ select.location {
 .save-row {
     display: flex;
     justify-content: center;
-    margin-top: 24px; /* Un peu plus d'espace au-dessus du bouton */
+    margin-top: 24px;
+    /* Un peu plus d'espace au-dessus du bouton */
 }
 
 .save-btn {
     background: var(--accent);
     border: 0;
     color: white;
-    padding: 14px 40px; /* Un peu plus grand pour l'ergonomie mobile */
+    padding: 14px 40px;
+    /* Un peu plus grand pour l'ergonomie mobile */
     border-radius: 12px;
     font-weight: 700;
     font-size: 16px;
@@ -243,6 +275,19 @@ select.location {
 .save-btn:active {
     transform: scale(0.98);
 }
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
+}
 
 /* ======================================================= */
 /* MEDIA QUERY : ADAPTATION TABLETTE ET DESKTOP */
@@ -253,13 +298,14 @@ select.location {
         /* Centrage vertical sur les grands écrans */
         align-items: center;
     }
-    
+
     .container {
-        max-width: 500px; /* Augmente légèrement le conteneur sur tablette */
+        max-width: 500px;
+        /* Augmente légèrement le conteneur sur tablette */
         padding: 30px 24px 36px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
-    
+
     .title h1 {
         font-size: 32px;
     }
@@ -274,16 +320,19 @@ select.location {
     }
 
     .count {
-        width: 64px; /* Retour à la largeur originale */
+        width: 64px;
+        /* Retour à la largeur originale */
     }
-    
+
     .btn {
-        width: 48px; /* L'élargit un peu pour plus de confort */
+        width: 48px;
+        /* L'élargit un peu pour plus de confort */
         height: 48px;
         font-size: 22px;
     }
 
     .save-btn {
-        padding: 12px 60px; /* Un peu plus large sur desktop */
+        padding: 12px 60px;
+        /* Un peu plus large sur desktop */
     }
 }

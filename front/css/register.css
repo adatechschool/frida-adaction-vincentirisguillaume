@@ -9,6 +9,34 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118\ \(1\).jpg");
+  background-size: cover; 
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;  /* espace pour le header */
+  padding-bottom: 80px; /* espace pour le footer */
 }
 
 .container {
@@ -34,29 +62,32 @@ body {
 /* ============================
    FORMULAIRE
 ============================ */
-form {
+
+form div{
   display: flex;
-  flex-direction: column;
+  padding: 10px 35px;
   gap: 18px;
+  align-items: center;
 }
 
 label {
-  font-weight: 500;
-  color: #333;
+  font-weight: bold;
+  color: #374151;
+  margin: 6px 10px;
   display: block;
-  margin-bottom: 6px;
+  font-size: 0.95rem;
 }
 
 input,
 select {
   width: 100%;
-  padding: 12px;
-  border: 1.5px solid #dce4ec;
+  padding: 11px;
   border-radius: 12px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1.5px solid #dce4ec;
   background: #f9fcff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.25s ease;
 }
 
 input:focus,
@@ -65,25 +96,40 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
 }
 
-/* ============================
-   BOUTON
-============================ */
+/* ===== BUTTON (smaller version) ===== */
 button {
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 1rem;
+  border-radius: 10px;
+  padding-left: auto;
+  padding-right: auto;
+  padding: 15px 0;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
+  width: 100%;
   margin-top: 10px;
 }
 
 button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 114, 255, 0.3);
+  box-shadow: 0 6px 14px rgba(0, 114, 255, 0.25);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================
@@ -122,9 +168,7 @@ button:hover {
    💻 DESKTOP (≥900px)
 ============================ */
 @media (min-width: 900px) {
-  body {
-    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
-  }
+  
 
   .container {
     padding: 40px;
