@@ -112,7 +112,7 @@ app.put("/volunteer/points/:id", async (req, res) => {
             `WITH collecte AS (
             UPDATE collects
             SET collect_points = $1,
-                association_id = $5
+                association_id = COALESCE($5, association_id)
             WHERE id = $2
             AND volunteer_id = $3
             RETURNING collect_points
@@ -200,6 +200,48 @@ app.post("/postCollects", async (req, res) => {
     }
 });
 
+// Route pour modifier une collecte
+app.put("/collects/:id", async (req, res) => {
+    const { id } = req.params;
+    const { location, megot, canne, plastique, conserve, canette, volunteer_id, updated_at, association_id } = req.body;
+    try {
+        const result = await sql.query(
+            `UPDATE collects 
+            SET location = $1, megot = $2, canne = $3,
+            plastique = $4, conserve = $5, canette = $6,
+            volunteer_id = $7, updated_at = $8,
+            association_id = COALESCE($9, association_id)
+            WHERE id=$10 AND volunteer_id = $7 RETURNING *`,
+            [location, megot, canne, plastique, conserve, canette, volunteer_id, updated_at, association_id, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Collecte non trouvée" });
+        }
+        res.json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: "Impossible de mettre à jour la collecte" });
+    }
+});
+
+// Route pour supprimer une collecte
+app.delete("/collects/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await sql.query(
+            `DELETE FROM collects
+            WHERE id = $1 AND volunteer_id = $2
+            RETURNING *`,
+            [id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Collecte non trouvée" });
+        }
+        res.json({ message: "Collecte supprimée", collect: result.rows[0] });
+    } catch (e) {
+        res.status(500).json({ error: "Impossible de supprimer la collecte" });
+    }
+});
+
 
 //________________________________________________________________________________
 // Route pour le login TEST
@@ -248,7 +290,7 @@ app.listen(3000, () => {
 app.get("/collects", async (req, res) => {
     // console.log("GET /collects");
     try {
-        const result = await sql.query("SELECT * FROM collects")
+        const result = await sql.query("SELECT * FROM collects ORDER BY ID")
         res.json(result.rows)
     }
     catch (e) {
@@ -301,6 +343,7 @@ app.get("/collects/volunteer/:id", async (req, res) => {
     try {
         const result = await sql.query(
             `SELECT 
+            collects.id AS collect_id, 
             collects.association_id,
             collects.collect_points,
             collects.location,

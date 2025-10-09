@@ -12,6 +12,26 @@ body {
   background-image: url("../photos/CityClean.png")
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
+  
+}
+
 
 .container {
   background: #fff;
@@ -27,20 +47,26 @@ body {
 /* ============================
    FORMULAIRES ET TEXTES
 ============================ */
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-dark);
+}
+
 form {
   margin-top: 12px;
 }
 
 form p {
-  font-size: 1.3rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: bold;
   color: #555;
-  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
-.container p{
-  margin-bottom: 10px;
-}
 
 /* ============================
    BOUTONS
@@ -84,6 +110,20 @@ button:hover {
   transform: scale(1.1);
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* ============================
    🖥️ TABLETTES (≥ 600px)
 ============================ */
@@ -97,7 +137,7 @@ button:hover {
   }
 
   #logosAsso img {
-    width: 60px;
+    width: 80px;
   }
 }
 
@@ -105,9 +145,9 @@ button:hover {
    💻 DESKTOP (≥ 900px)
 ============================ */
 @media (min-width: 900px) {
-  body {
-    /* background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%); */
-  }
+  /* body {
+    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
+  } */
 
   .container {
     max-width: 450px;
@@ -124,8 +164,5 @@ button:hover {
     padding: 14px 20px;
   }
 
-  #logosAsso {
-    gap: 16px;
-  }
 }
 

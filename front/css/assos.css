@@ -11,6 +11,34 @@ body {
   display: flex;
   justify-content: center;
   color: #111827;
+  background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118\ \(1\).jpg");
+  background-size: cover; 
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;  /* espace pour le header */
+  padding-bottom: 80px; /* espace pour le footer */
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
 }
 
 /* ===== CONTAINER ===== */
@@ -24,12 +52,19 @@ body {
 }
 
 /* ===== TITRE ===== */
-.title h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  color: #0f172a;
-  margin-bottom: 16px;
+
+.title {
+  display: flex;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  align-items: bottom;
+  gap: 15px;
+}
+
+h1 {
+    font-size: auto;
+    margin-bottom: 2rem;
+    color: var(--color-text-dark);
 }
 
 #btn-return {
@@ -152,9 +187,7 @@ td {
 
 /* ===== TABLET (≥900px) ===== */
 @media (min-width: 900px) {
-  body {
-    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
-  }
+
 
   .container {
     padding: 28px 36px;
@@ -166,10 +199,32 @@ td {
   }
 }
 
-/* ajout d'une image dans le main */
-main {
-  background-image: url('../images/assos-bg.png');
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: 150px;
+.remove-btn {
+  display: flex;;
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
+  background-color: rgb(221, 3, 3);
+  color: white;
+  font-weight: bold;
+  border:none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
 }

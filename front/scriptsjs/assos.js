@@ -58,7 +58,6 @@ const getVolunteer = async () => {
                 <td>${volunteer.location}</td>
                 <td>${volunteer.email}</td>
                 <td><button class="remove-btn">X</button></td>
-                <td><button class="remove-btn">x</button></td>
             `;
             userLine.appendChild(row);
             console.log("volunteer.id:", volunteer.id)

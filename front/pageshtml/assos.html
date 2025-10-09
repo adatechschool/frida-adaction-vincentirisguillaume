@@ -11,37 +11,44 @@
 </head>
 
 <body>
-    <main class="container">
-        <header class="title">
-            <button id="btn-return"><a href="#"><img src="../pictos_logos/house.svg"></a></button>
-            <h1 id="page-title">Bienvenue sur le panneau association</h1>
-        </header>
+    <header>
+        <div id="logoAdaction"><a href="#"><img src="../pictos_logos/ADACTION Blanc.svg"></a></div>
+    </header>
 
-        <p id="rows-count">Nombre de collectes aujourd'hui : 0</p>
+    <main>
+        <div class="container">
 
-        <table id="collecte-table" border="1">
-            <thead>
-                <tr>
-                    <th id="id-value">ID</th>
-                    <th id="username-value">Nom d'utilisateur</th>
-                    <th id="date-value">Points</th>
-                    <th id="location-value">Location</th>
-                    <th id="collects-value">Email</th>
-                    <th id="action-value">Action</th>
-                </tr>
-            </thead>
-            <tbody id="collecte-rows">
-            </tbody>
+            <div class="title">
+                <button id="btn-return"><a href="#"><img src="../pictos_logos/house.svg"></a></button>
+                <h1 id="page-title">Bienvenue sur le panneau association</h1>
+            </div>
+
+            <table id="collecte-table" border="1">
+                <thead>
+                    <tr>
+                        <th id="id-value">ID</th>
+                        <th id="username-value">Nom d'utilisateur</th>
+                        <th id="date-value">Points</th>
+                        <th id="location-value">Location</th>
+                        <th id="collects-value">Email</th>
+                        <th id="action-value">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="collecte-rows">
+                </tbody>
+        </div>
+
+        <div>
+            <button id="btn-volunteer">Voir tous les bénévoles inscrits</button>
+        </div>
     </main>
-    <div>
-        <button id="btn-volunteer">Voir tous les bénévoles inscrits</button>
-    </div>
     <div>
         <select id="location-filter">
             <option value="none" selected disabled hidden>Choisir une ville</option>
-            <option value="all">Toutes les villes</option>
         </select>
     </div>
+    <footer>&copy; 2025 ADACTION — Tous droits réservés</footer>
+
 </body>
 
 </html>

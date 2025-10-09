@@ -10,51 +10,58 @@
 </head>
 
 <body>
-    <main class="container">
+    <main>
+        <div class="container">
+            <header>
+                <div id="logoAdaction"><a href="#"><img src="../pictos_logos/ADACTION Blanc.svg"></a></div>
+            </header>
 
-        <header class="title">
-            <h1 id="page-title">Inscription</h1>
-        </header>
-
-        <form id="form">
-
-            <div>
-                <label for="name">Nom :</label>
-                <input type="text" class="name" placeholder=" Votre Nom" name="inputName" autocomplete="off" required>
+            <div class="title">
+                <h1 id="page-title">Inscription</h1>
             </div>
 
-            <div>
-                <label for="password">Mot de passe :</label>
-                <input type="password" class="pass" placeholder=" Mot de passe" name="inputPass"
-                    autocomplete="new-password" required>
-            </div>
+            <form id="form">
 
-            <div>
-                <label for="location">Localisation :</label>
-                <input list="communes" class="loc" placeholder="Votre Ville" name="inputLoc" autocomplete="off" required>
-                <datalist id="communes"></datalist>
+                <div>
+                    <label for="name">Nom :</label>
+                    <input type="text" class="name" placeholder=" Votre Nom" name="inputName" autocomplete="off"
+                        required>
+                </div>
 
-            </div>
+                <div>
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" class="pass" placeholder=" Mot de passe" name="inputPass"
+                        autocomplete="new-password" required>
+                </div>
 
-            <div>
-                <label for="email">Email :</label>
-                <input type="text" class="email" placeholder=" Votre Email" name="inputEmail" required>
-            </div>
-            <div>
-                <label for="email2">Confirmation :</label>
-                <input type="text" id="email2" placeholder=" Confirmez Email" name="inputEmail2" required>
-            </div>
+                <div>
+                    <label for="location">Localisation :</label>
+                    <input list="communes" class="loc" placeholder="Votre Ville" name="inputLoc" autocomplete="off"
+                        required>
+                    <datalist id="communes"></datalist>
 
-            <div>
-                <label for="asso">Association choisie :</label>
-                <select id="association-input" class="choixAsso">
+                </div>
 
-                </select>
-            </div>
-            <button type="submit" id="btnRegister">Enregistrer ✅ </button>
-        </form>
+                <div>
+                    <label for="email">Email :</label>
+                    <input type="text" class="email" placeholder=" Votre Email" name="inputEmail" required>
+                </div>
+                <div>
+                    <label for="email2">Confirmation :</label>
+                    <input type="text" id="email2" placeholder=" Confirmez Email" name="inputEmail2" required>
+                </div>
+
+                <div>
+                    <label for="asso">Association choisie :</label>
+                    <select id="association-input" class="choixAsso">
+
+                    </select>
+                </div>
+                <button type="submit" id="btnRegister">Enregistrer ✅ </button>
+            </form>
+        </div>
     </main>
-
+    <footer>&copy; 2025 ADACTION — Tous droits réservés</footer>
 </body>
 
 </html>

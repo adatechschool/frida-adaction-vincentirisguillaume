@@ -13,6 +13,34 @@ body {
   align-items: flex-start;
   padding: 28px 16px;
   color: #111827;
+  background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118\ \(1\).jpg");
+  background-size: cover; 
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;  /* espace pour le header */
+  padding-bottom: 80px; /* espace pour le footer */
 }
 
 /* ===== CARD / CONTAINER ===== */
@@ -35,16 +63,17 @@ body {
 }
 
 /* ===== FORM ===== */
-form {
+form div{
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 10px 25px;
+  gap: 10px;
+  align-items: center;
 }
 
 label {
-  font-weight: 500;
+  font-weight: bold;
   color: #374151;
-  margin-bottom: 6px;
+  margin: 6px;
   display: block;
   font-size: 0.95rem;
 }
@@ -73,7 +102,9 @@ button {
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding-left: auto;
+  padding-right: auto;
+  padding: 10px 0;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -87,64 +118,18 @@ button:hover {
   box-shadow: 0 6px 14px rgba(0, 114, 255, 0.25);
 }
 
-/* ===== SMALLER SCREEN SPACING ===== */
-@media (max-width: 380px) {
-  #profil-card {
-    padding: 18px;
-  }
-  #profil-card h2 {
-    font-size: 1.4rem;
-  }
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== TABLET (≥600px) ===== */
-@media (min-width: 600px) {
-  #profil-card {
-    padding: 28px;
-  }
 
-  #profil-card h2 {
-    font-size: 1.8rem;
-  }
-
-  input,
-  select {
-    font-size: 1rem;
-    padding: 12px;
-  }
-
-  button {
-    font-size: 0.95rem;
-    padding: 11px 16px;
-  }
-}
-
-/* ===== DESKTOP (≥900px) ===== */
-@media (min-width: 900px) {
-  body {
-    background: linear-gradient(180deg, #eaf6ff 0%, #f4f8fb 100%);
-    align-items: center;
-  }
-
-  #profil-card {
-    padding: 36px;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
-  }
-
-  #profil-card h2 {
-    font-size: 2rem;
-  }
-
-  button {
-    font-size: 1rem;
-    padding: 12px 18px;
-  }
-}
-
-/* ===== ACCESSIBILITY ===== */
-button:focus,
-input:focus,
-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.25);
-}

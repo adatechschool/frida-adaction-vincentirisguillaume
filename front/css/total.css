@@ -29,6 +29,35 @@ body {
     background-color: var(--color-background-light);
     line-height: 1.6;
     min-height: 100vh; /* S'assurer que le body occupe toute la hauteur */
+     background-image: url("../photos/vecteezy_texture-wrinkled-plastic-bag-background_14841118\ \(1\).jpg");
+  background-size: cover; 
+}
+
+main {
+  padding-top: 100px; /* espace pour le header */
+  padding-bottom: 80px; /* espace pour le footer */
+  min-height: calc(100vh - 180px); /* pour remplir l’écran correctement */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ou center si tu veux centrer verticalement */
+  box-sizing: border-box;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
 }
 
 /* ==================================== */
@@ -151,6 +180,21 @@ button:active {
 #btnReturnIndex:hover {
     background-color: #0056b3; /* Une nuance plus foncée */
 }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 /* ==================================== */
 /* 5. Media Queries (Desktop/Tablet) */
