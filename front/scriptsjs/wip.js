@@ -2,9 +2,19 @@ import { getUserInfos } from "./fetchs-iris.js";
 
 // localStorage.clear(); // Pour tests, à retirer en prod
 const volunteer = localStorage.getItem("id");
-const assoId = localStorage.getItem("association_edit_id")
+const assoIdLS = localStorage.getItem("association_edit_id")
+const collectIdLS = localStorage.getItem("collecte_edit_id");
 console.log("volunteer_id:", volunteer);
-console.log("asso_id:", assoId);
+console.log("asso_id:", assoIdLS);
+console.log("collect_id:", collectIdLS);
+
+
+// ? = si collectIdFromLS existe (valeur “vraie”), alors le  mode = 'EDIT', sinon mode = 'CREATE'.
+const mode = collectIdLS ? 'EDIT' : 'CREATE';
+// Ça s’appelle l’opérateur ternaire, chat gpt l'a suggeré mais je trouve ca stylé
+// voir le mode actuel :
+console.log("mode:", mode);
+
 
 // Utilitaire pour récupérer les valeurs de tous les compteurs
 function getAllCounts() {
@@ -27,7 +37,7 @@ function getAllCounts() {
 
 
 
-// Fonction pour envoyer les données à la base Neon
+// Fonction pour envoyer les données vers la base Neon
 async function sendToDatabase() {
 
   //fetch sur les infos actuelles du user
@@ -44,14 +54,14 @@ async function sendToDatabase() {
   const total = megot + plastique + canette + canne + conserve;
 
 
- 
-  if(total === 0)
+
+  if (total === 0)
     return;
 
-    const now = new Date().toISOString();
-  
+  const now = new Date().toISOString();
+
   //_________________________//
-  
+
 
 
   try {
@@ -65,7 +75,7 @@ async function sendToDatabase() {
         megot: megot,
         plastique: plastique,
         canette: canette,
-        canne:  canne,
+        canne: canne,
         conserve: conserve,
         volunteer_id: volunteer,
         created_at: now,
@@ -85,7 +95,7 @@ async function sendToDatabase() {
   }
 }
 
-// Fonction pour modifier la collecte ds la base neon
+// // Fonction pour modifier la collecte ds la base neon
 async function updateDatabase() {
 
   //fetch sur les infos actuelles du user
@@ -101,34 +111,31 @@ async function updateDatabase() {
 
   const total = megot + plastique + canette + canne + conserve;
 
-
- 
-  if(total === 0)
+  if (total === 0)
     return;
 
-    const now = new Date().toISOString();
-  
-  //_________________________//
-  
+  const now = new Date().toISOString();
+
+  const bodyJson = {
+    location: location,
+    megot: megot,
+    plastique: plastique,
+    canette: canette,
+    canne: canne,
+    conserve: conserve,
+    volunteer_id: volunteer,
+    updated_at: now
+  }
+  if (assoIdLS) { bodyJson.association_id = assoIdLS; }
 
 
   try {
-    const response = await fetch('http://localhost:3000/postCollects', {
+    const response = await fetch(`http://localhost:3000/collects/${collectIdLS}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        location: location,
-        megot: megot,
-        plastique: plastique,
-        canette: canette,
-        canne:  canne,
-        conserve: conserve,
-        volunteer_id: volunteer,
-        updated_at: now,
-        association_id: assoId
-      })
+      body: JSON.stringify(bodyJson)
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -176,6 +183,7 @@ document.querySelectorAll('.count').forEach(input => {
 // Gestion du bouton Enregistrer avec feedback visuel
 document.getElementById('save-btn')?.addEventListener('click', async () => {
   const saveBtn = document.getElementById('save-btn');
+
   if (!saveBtn) return;
 
   const originalText = saveBtn.textContent;
@@ -189,21 +197,37 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
     }, 2000);
     return;
   }
-
-  if (volunteer && assoId){
-    try{
-      updateDatabase()
-    }
-    catch (error){console.error(`erreur lors de l'update de la collecte id ${collectId}`)
-
-
-    }
-  }
-
+  
   try {
     saveBtn.disabled = true;
     saveBtn.textContent = 'Sauvegarde...';
-    await sendToDatabase();
+
+    // MODIF ICI selon le mode
+    if (mode === 'EDIT') {
+
+      //PUT edit dataB
+      const res = await updateDatabase();
+
+      // on envoie pour total.js
+      localStorage.setItem("collect_id", collectIdLS);
+      if (assoIdLS) localStorage.setItem('asso_id', String(assoIdLS));
+
+      // si ca s'est bien passé on efface les infos correspondant a une id de l'historique
+      localStorage.removeItem('association_edit_id');
+      localStorage.removeItem('collecte_edit_id');
+
+    }
+    // mode === 'CREATE'
+    else {
+      const create = await sendToDatabase();
+      if (!create) return;
+
+      // on envoie pour total.js
+      localStorage.setItem('collect_id', create.id);
+      if (create.association_id != null) {
+      localStorage.setItem('asso_id', create.association_id);
+      }
+    }
 
     // Feedback succès
     saveBtn.textContent = '✓ Sauvegardé!';
@@ -212,7 +236,7 @@ document.getElementById('save-btn')?.addEventListener('click', async () => {
       saveBtn.disabled = false;
     }, 2000);
 
-   //userInfos[0].association_name
+    //userInfos[0].association_name
 
     window.location.href = "total.html";
   } catch (error) {
