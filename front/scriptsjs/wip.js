@@ -1,6 +1,6 @@
 import { getUserInfos } from "./fetchs-iris.js";
 
-// localStorage.clear(); // Pour tests, à retirer en prod
+// recuperatiion des variables asso user et collect
 const volunteer = localStorage.getItem("id");
 const assoIdLS = localStorage.getItem("association_edit_id")
 const collectIdLS = localStorage.getItem("collecte_edit_id");
@@ -33,9 +33,6 @@ function getAllCounts() {
   });
   return results;
 }
-
-
-
 
 // Fonction pour envoyer les données vers la base Neon
 async function sendToDatabase() {
