@@ -1,162 +1,154 @@
-/* ==================================== */
-/* 1. Variables et Configuration de base */
-/* ==================================== */
-:root {
-    /* Couleurs inspirées de votre charte (vert/bleu) */
-    --color-primary: #1AC9A1; /* Vert turquoise (pour le bouton) */
-    --color-text-dark: #333;
-    --color-text-light: #fff;
-    --color-background-light: #f4f7f6;
-    --color-error: #dc3545; /* Rouge pour les messages d'erreur */
-    --color-border: #ddd;
-    --color-input-border: #e6e9eb;
-
-    --font-family-main: 'Arial', sans-serif;
-    --spacing-unit: 1rem; /* 16px */
-    --radius-small: 8px;
-    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* --- Style global --- */
 body {
-    font-family: var(--font-family-main);
-    color: var(--color-text-dark);
-    background-color: var(--color-background-light);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem; /* Marge autour du contenu sur mobile */
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../photos/Plage.png");
+  background-position: right bottom; /* place l’image en bas à droite */
+background-size: auto; /* réduit sa taille */
 }
 
-/* ==================================== */
-/* 2. Style du Conteneur et Titre (Mobile First) */
-/* ==================================== */
 
-.container-login { /* Ajout d'une classe wrapper pour le body si besoin, sinon on cible directement le form */
-    width: 100%;
-    max-width: 400px; /* Taille maximale pour le formulaire sur mobile/desktop */
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: var(--radius-small);
-    box-shadow: var(--shadow-subtle);
+/* Conteneur centré pour éviter les effets du header/footer */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;    /* Centre verticalement */
+  justify-content: center; /* Centre horizontalement */
+  padding: 100px 20px;    /* espace pour header/footer */
 }
 
+/* --- Bannière supérieure --- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+#logoAdaction{
+  width: 250px;
+  height: auto;
+  margin: auto;
+  
+}
+
+/* --- Formulaire principal --- */
+form {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Titre principal --- */
 h1 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: var(--color-text-dark);
+  text-align: center;
+  color: #000;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
 }
 
-/* Si vous ne pouvez pas ajouter de classe, on peut wrapper le formulaire pour le styling: */
-form#loginForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem; /* Espace entre les éléments du formulaire */
-}
-
-/* ==================================== */
-/* 3. Champs du Formulaire */
-/* ==================================== */
-
+/* --- Labels --- */
 label {
-    font-weight: 600;
-    color: var(--color-text-dark);
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-    display: block; /* S'assurer que le label prend sa propre ligne */
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
 }
 
+/* --- Champs de saisie --- */
 input[type="text"],
 input[type="password"] {
+  padding: 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+/* --- Bouton --- */
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* --- Message d’erreur --- */
+#message {
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* --- Pied de page --- */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Version mobile --- */
+@media (max-width: 600px) {
+  form {
+    padding: 25px 30px;
     width: 100%;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem; /* Espace supplémentaire après l'input */
-    border: 1px solid var(--color-input-border);
-    border-radius: var(--radius-small);
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
+    margin-top: 100px;
+  }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 201, 161, 0.2);
-}
+  h1 {
+    font-size: 1.6em;
+  }
 
-/* ==================================== */
-/* 4. Bouton de Soumission */
-/* ==================================== */
+  input,
+  button {
+    font-size: 15px;
+  }
 
-button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 1rem;
-    margin-top: 1rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--color-text-light);
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: var(--radius-small);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
+  header {
+    font-size: 18px;
+    padding: 12px 0;
+  }
 
-button[type="submit"]:hover {
-    background-color: #16a682; /* Une nuance plus foncée */
-}
-
-button[type="submit"]:active {
-    transform: scale(0.98);
-}
-
-/* ==================================== */
-/* 5. Message d'erreur */
-/* ==================================== */
-
-p#message {
-    text-align: center;
-    margin-top: 1rem;
-    padding: 0.5rem;
-    color: var(--color-error) !important; /* Rendre le style plus fort pour l'erreur */
-    font-weight: 500;
-}
-
-/* ==================================== */
-/* 6. Media Query (Desktop/Tablet) */
-/* ==================================== */
-
-@media (min-width: 600px) {
-    body {
-        /* Centrage du formulaire au milieu de l'écran */
-        justify-content: center;
-        padding: 0;
-    }
-    
-    /* On rend le formulaire un peu plus large sur desktop pour plus de confort visuel */
-    form#loginForm {
-        max-width: 440px;
-        padding: 2.5rem;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    h1 {
-        font-size: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-
-    input[type="text"],
-    input[type="password"] {
-        padding: 1rem;
-    }
+  footer {
+    font-size: 13px;
+    padding: 8px 0;
+  }
 }
