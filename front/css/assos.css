@@ -57,21 +57,20 @@ header {
   display: flex;
   margin-bottom: 1.5rem;
   justify-content: center;
-  align-items: bottom;
   gap: 15px;
 }
 
 h1 {
     font-size: auto;
-    margin-bottom: 2rem;
     color: var(--color-text-dark);
 }
 
 #btn-return {
   border: 0;
-  padding: 10px;
   border-radius: 12px;
   font-size: 12px;
+  background: none;   /* Supprime le fond gris du bouton */
+  padding: 0;  
   cursor: pointer;
 
 }
