@@ -83,8 +83,9 @@ h1 {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 80px; /* espace avant le footer */
+  margin-bottom: 120px; /* espace avant le footer et le bouton retour */
   box-sizing: border-box;
+  position: relative; /* pour positionner #profil-redirect en absolu à l'intérieur */
   /* layout cards as a responsive grid */
   display: grid;
   grid-template-columns: 1fr; /* mobile: single column */
@@ -161,4 +162,26 @@ h1 {
 .container button, .card button {
   display: inline-block;
   white-space: nowrap;
+}
+
+/* === Bouton retour profil (mêmes styles que "edit collect") === */
+#profil-redirect {
+  position: absolute;
+  bottom: -4.5rem; /* place le bouton sous le bloc cartes, dans le vide */
+  right: 2rem;
+  background-color: var(--color-secondary);
+  color: var(--color-text-light);
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+#profil-redirect:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }

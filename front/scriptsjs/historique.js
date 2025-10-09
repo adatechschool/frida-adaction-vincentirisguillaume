@@ -4,6 +4,7 @@ import { getHistoInfo, userId, nouvelleBalise, nouvelleBalise2 } from "./fetchs-
 // elements du DOM
 const htmlContent = document.getElementById("histo-content");
 const textBtn = "edit collect"
+const returnBtnTxt = "retour profil"
 
 // fonction qui affiche la date version humains
 function dateFormat(date) {
@@ -66,3 +67,10 @@ const showHisto = async () => {
 }
 // affiche 
 showHisto();
+
+// creer un bouton revenir au profil
+nouvelleBalise("button", returnBtnTxt, htmlContent).id="profil-redirect";
+const profilReturn = document.getElementById("profil-redirect")
+profilReturn.addEventListener('click', () =>{
+ window.location.href = "profile.html"
+})
