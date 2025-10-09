@@ -39,6 +39,8 @@ cityInput.addEventListener('input', async (e) => {
         option.value = commune.nom;
         datalist.appendChild(option);
     });
+    
+
 });
 
 
@@ -61,7 +63,7 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
-      // 🔍 Vérifie que la ville saisie correspond à une ville valide
+    // 🔍 Vérifie que la ville saisie correspond à une ville valide
     if (!validCities.includes(location)) {
         alert("Veuillez sélectionner une ville valide depuis la liste proposée !");
         return;
