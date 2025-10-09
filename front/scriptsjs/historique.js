@@ -1,4 +1,4 @@
-import { getHistoInfo, userId, nouvelleBalise, nouvelleBalise2 } from "./fetchs-iris.js";
+import { getHistoInfo, userId, nouvelleBalise, nouvelleBalise2 } from "../scriptsjs/fetchs-iris.js";
 
 
 const htmlContent = document.getElementById("histo-content");

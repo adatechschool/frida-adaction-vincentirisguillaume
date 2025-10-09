@@ -106,7 +106,7 @@ app.put("/volunteer/:id", async (req, res) => {
 //Route pour ajouter des points a un benevole apres une collecte
 app.put("/volunteer/points/:id", async (req, res) => {
     const { id } = req.params;
-    const { points, collect_points , collect_id, association_id} = req.body;
+    const { points, collect_points, collect_id, association_id } = req.body;
     try {
         const result = await sql.query(
             `WITH collecte AS (
@@ -122,17 +122,17 @@ app.put("/volunteer/points/:id", async (req, res) => {
    FROM collecte
    WHERE volunteers.id = $3
    RETURNING volunteers.*`,
-   
-   [collect_points, collect_id, id, points, association_id]);
-       
-        
-if (result.rows.length === 0) {
-    return res.status(404).json({ error: "Bénévole non trouvé" });
-}
-res.json(result.rows[0]);
+
+            [collect_points, collect_id, id, points, association_id]);
+
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Bénévole non trouvé" });
+        }
+        res.json(result.rows[0]);
     } catch (e) {
-    res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
-}
+        res.status(500).json({ error: "Impossible de mettre à jour le bénévole" });
+    }
 });
 
 
@@ -182,7 +182,7 @@ app.get("/associations", async (req, res) => {
 
 // Route pour ajouter des dechets
 app.post("/postCollects", async (req, res) => {
-    const { location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at, association_id} = req.body;
+    const { location, megot, canne, plastique, conserve, canette, volunteer_id, created_at, updated_at, association_id } = req.body;
 
     if (!location || megot == null || canne == null || plastique == null || conserve == null || canette == null || !volunteer_id || !association_id) {
         return res.status(400).json({ error: "Champs manquants" });
@@ -313,7 +313,7 @@ app.get("/collects/volunteer/:id", async (req, res) => {
             JOIN associations ON collects.association_id = associations.id
             WHERE volunteers.id = $1
             ORDER BY collects.id DESC`, [id]);
-            
+
         if (result.rows.length === 0) {
             return res.status(404).json({ Error: "il n'y a pas/plus de collects pour ce benevole" });
         }
