@@ -162,12 +162,13 @@ h1 {
 .container button, .card button {
   display: inline-block;
   white-space: nowrap;
+  margin : 0.5rem 0.5rem 0 0;
 }
 
 /* === Bouton retour profil (mêmes styles que "edit collect") === */
 #profil-redirect {
   position: absolute;
-  bottom: -4.5rem; /* place le bouton sous le bloc cartes, dans le vide */
+  bottom: -4rem; /* place le bouton sous le bloc cartes, dans le vide */
   right: 2rem;
   background-color: var(--color-secondary);
   color: var(--color-text-light);

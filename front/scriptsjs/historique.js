@@ -5,6 +5,7 @@ import { getHistoInfo, userId, nouvelleBalise, nouvelleBalise2 } from "./fetchs-
 const htmlContent = document.getElementById("histo-content");
 const textBtn = "edit collect"
 const returnBtnTxt = "retour profil"
+const deleteBtnTxt = "Supprimer"
 
 // fonction qui affiche la date version humains
 function dateFormat(date) {
@@ -28,7 +29,8 @@ const printCard = async (index, data) => {
     nouvelleBalise('div', `Points : ${data[index].collect_points}`, container).id = `points-collect${index}`
     nouvelleBalise('div', `Association : ${data[index].association_name}`, container).id = `association-collect${index}`
     nouvelleBalise('div', `Date : ${dateFormat(date)}`, container).id = `date-collect${index}`
-    const modifBtn = nouvelleBalise('button', textBtn, container)
+    const modifBtn = nouvelleBalise('button', textBtn, container);
+    const deleteBtn = nouvelleBalise('button', deleteBtnTxt, container)
 
     //parametres du btn : id, value 
     modifBtn.value = data[index].association_id
@@ -46,6 +48,44 @@ const printCard = async (index, data) => {
 
         // direction page edition collecte
         window.location.href = "./wip.html"
+    });
+
+    // bouton delete collect
+    deleteBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        // si clic par erreur
+        const ok = confirm('Supprimer cette collecte ?');
+        // retourne au clic sur annuler
+        if (!ok) return;
+
+        // j'ai besoin de l'id de la collect selectionnée pour le delete
+        const collectId = data[index].collect_id;
+
+        // action de delete via route delete
+        try {
+            const res = await fetch(`http://localhost:3000/collects/${collectId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ volunteer_id: userId })
+            });
+            
+            // si ca se passe mal message d'erreur
+            if (!res.ok) {
+                const msg = await res.text();
+                console.error('DELETE /collects failed', res.status, msg);
+                alert('Suppression impossible.');
+                return;
+            }
+
+            // Retire la carte du DOM
+            container.remove();
+            // window.location.reload();
+            
+        } catch (err) {
+            console.error('Erreur de suppression:', err);
+            alert('Erreur lors de la suppression');
+        }
     });
 }
 
@@ -69,8 +109,8 @@ const showHisto = async () => {
 showHisto();
 
 // creer un bouton revenir au profil
-nouvelleBalise("button", returnBtnTxt, htmlContent).id="profil-redirect";
+nouvelleBalise("button", returnBtnTxt, htmlContent).id = "profil-redirect";
 const profilReturn = document.getElementById("profil-redirect")
-profilReturn.addEventListener('click', () =>{
- window.location.href = "profile.html"
+profilReturn.addEventListener('click', () => {
+    window.location.href = "profile.html"
 })
