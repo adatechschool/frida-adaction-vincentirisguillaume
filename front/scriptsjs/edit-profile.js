@@ -1,5 +1,6 @@
 import { getUserInfos, assoDropMenu, getAssolist } from "./fetchs-iris.js";
 
+
 //éléments du DOM
 const userName = document.getElementById('username');
 const locationInput = document.getElementById('location');

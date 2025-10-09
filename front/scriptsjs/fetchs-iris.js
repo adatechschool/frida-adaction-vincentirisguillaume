@@ -62,10 +62,21 @@ const fetchUserPoints = async (id) => {
 
 // fonction import infos pour historique
 
-const getHistoInfo = async(id) => {
+const getHistoInfo = async (id) => {
     const response = await fetch(`http://localhost:3000/collects/volunteer/${id}`);
     const data = await response.json()
     return data;
 }
 
-export { getUserInfos , getAssolist, assoDropMenu, fetchUserPoints, getHistoInfo, nouvelleBalise, nouvelleBalise2, username, userId };
+// const effaceLS = () => {
+//     document.addEventListener('click', (event) => {
+//         const headerAdaction = event.target.closest("#logoAdaction");
+//         if (headerAdaction) {
+//             localStorage.clear();
+//         }
+//     })
+// }
+
+
+
+export { getUserInfos, getAssolist, assoDropMenu, fetchUserPoints, getHistoInfo, nouvelleBalise, nouvelleBalise2, username, userId };

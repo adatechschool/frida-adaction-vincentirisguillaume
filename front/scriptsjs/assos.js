@@ -1,4 +1,8 @@
 
+import { effaceLS } from "./fetchs-iris";
+effaceLS()
+console.log(localStorage)
+
 let userLine = document.getElementById('collecte-rows');
 const btnReturn = document.getElementById('btn-return');
 const btnVolunteer = document.getElementById('btn-volunteer');

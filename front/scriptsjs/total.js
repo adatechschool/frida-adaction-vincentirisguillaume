@@ -1,6 +1,7 @@
 // import d'outils pour lire l'utilisateur connecté et ses points actuels
 import { fetchUserPoints, userId } from './fetchs-iris.js';
 
+
 // element du DOM pour injecter html et rediriger
 const todayCollect = document.getElementById('today');
 const btnReturnProfil = document.getElementById('btnReturnIndex');

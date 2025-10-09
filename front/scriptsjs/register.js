@@ -1,5 +1,6 @@
 import { assoDropMenu, getAssolist } from "./fetchs-iris.js";
 
+
 const form = document.getElementById('form');
 const nameInput = document.querySelector('.name');
 const cityInput = document.querySelector('.loc');

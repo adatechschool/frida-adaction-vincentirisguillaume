@@ -1,5 +1,6 @@
 import { getUserInfos } from "./fetchs-iris.js";
 
+
 // recuperatiion des variables asso user et collect
 const volunteer = localStorage.getItem("id");
 const assoIdLS = localStorage.getItem("association_edit_id")

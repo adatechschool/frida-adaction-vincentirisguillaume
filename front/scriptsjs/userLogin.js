@@ -1,3 +1,5 @@
+
+
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
 let idStorage;
